@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-const ComponentTest = () => {
-    return (
-        <div>
-            <h1>Hello, World!</h1>
-            <p>This is a simple React component.</p>
-        </div>
-    );
+let Hello = (props) => {
+  return (
+    <div>
+      <h1>Hello, {Mike} World!</h1>
+      <p>This is a simple React component.</p>
+    </div>
+  );
 };
 
-export default ComponentTest;
+export default Hello;
