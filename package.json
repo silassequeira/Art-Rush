@@ -12,5 +12,7 @@
   "author": "Silas Sequeira",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.21.1",
+    "node-fetch": "^2.7.0"
   }
 }
