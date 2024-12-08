@@ -8,7 +8,7 @@ const server = express()
 async function fetchCats() {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=11&limit=1000')
     const data = await response.json()
-    const objectIDs = data.objectIDs.slice(0, 90) // Limit to 80 objects
+    const objectIDs = data.objectIDs.slice(0, 390) // Limit to 80 objects
 
     const records = []
 
