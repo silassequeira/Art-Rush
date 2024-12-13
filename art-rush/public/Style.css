@@ -1,5 +1,10 @@
 /* Reset */
-body, h1, h2, p, span, button {
+body,
+h1,
+h2,
+p,
+span,
+button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -36,7 +41,8 @@ header h1 .home-link {
 }
 
 header h1 .home-link:hover {
-    color: #8B0000; /* Vermelho escuro */
+    color: #8B0000;
+    /* Vermelho escuro */
 }
 
 /* Buttons */
@@ -54,7 +60,8 @@ header h1 .home-link:hover {
 }
 
 .buttons-container button#loginButton {
-    background-color: #8B0000; /* Vermelho escuro */
+    background-color: #8B0000;
+    /* Vermelho escuro */
     color: white;
     border: none;
 }
@@ -65,7 +72,8 @@ header h1 .home-link:hover {
 }
 
 .buttons-container button#loginButton:hover {
-    background-color: #A52A2A; /* Tom mais claro de vermelho escuro */
+    background-color: #A52A2A;
+    /* Tom mais claro de vermelho escuro */
 }
 
 /* Form */
@@ -117,7 +125,8 @@ header h1 .home-link:hover {
 }
 
 .form-buttons button {
-    background-color: #8B0000; /* Vermelho escuro */
+    background-color: #8B0000;
+    /* Vermelho escuro */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -127,7 +136,7 @@ header h1 .home-link:hover {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.form-buttons button#goToSignUp,
+.form-buttons button#goToSignup,
 .form-buttons button#goToLogin {
     background-color: transparent;
     border: 2px solid black;
@@ -140,7 +149,7 @@ header h1 .home-link:hover {
     color: white;
 }
 
-.form-buttons button#goToSignUp:hover,
+.form-buttons button#goToSignup:hover,
 .form-buttons button#goToLogin:hover {
     background-color: #ddd;
     color: black;
@@ -359,7 +368,8 @@ header h1 .home-link:hover {
 }
 
 #scrollToTopBtn:hover {
-    color: #8B0000; /* Cor vermelha escura */
+    color: #8B0000;
+    /* Cor vermelha escura */
 }
 
 /* Logout Button */

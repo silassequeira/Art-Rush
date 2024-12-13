@@ -3,25 +3,25 @@ const API_URL = 'http://localhost:3000';
 // Mostrar formulário de login
 document.getElementById('loginButton').onclick = () => {
     document.getElementById('loginForm').style.display = 'block';
-    document.getElementById('signupForm').style.display = 'none';
+    document.getElementById('SignupForm').style.display = 'none';
 };
 
 // Mostrar formulário de criação de conta
-document.getElementById('signupButton').onclick = () => {
-    document.getElementById('signupForm').style.display = 'block';
+document.getElementById('SignupButton').onclick = () => {
+    document.getElementById('SignupForm').style.display = 'block';
     document.getElementById('loginForm').style.display = 'none';
 };
 
 // Ir para a tela de registro a partir do login
-document.getElementById('goToSignUp').onclick = () => {
-    document.getElementById('signupForm').style.display = 'block';
+document.getElementById('goToSignup').onclick = () => {
+    document.getElementById('SignupForm').style.display = 'block';
     document.getElementById('loginForm').style.display = 'none';
 };
 
 // Ir para a tela de login a partir do registro
 document.getElementById('goToLogin').onclick = () => {
     document.getElementById('loginForm').style.display = 'block';
-    document.getElementById('signupForm').style.display = 'none';
+    document.getElementById('SignupForm').style.display = 'none';
 };
 
 // Fechar janela de login
@@ -30,8 +30,8 @@ document.getElementById('close-login-modal').onclick = () => {
 };
 
 // Fechar janela de registro
-document.getElementById('close-signup-modal').onclick = () => {
-    document.getElementById('signupForm').style.display = 'none';
+document.getElementById('close-Signup-modal').onclick = () => {
+    document.getElementById('SignupForm').style.display = 'none';
 };
 
 // Envio do formulário de login
@@ -59,15 +59,15 @@ document.getElementById('loginSubmit').onclick = async (e) => {
 };
 
 // Envio do formulário de registro
-document.getElementById('signupSubmit').onclick = async (e) => {
+document.getElementById('SignupSubmit').onclick = async (e) => {
     e.preventDefault();
-    const username = document.getElementById('signupUser').value;
-    const password = document.getElementById('signupPassword').value;
+    const username = document.getElementById('SignupUser').value;
+    const password = document.getElementById('SignupPassword').value;
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
 
     try {
-        const response = await fetch(`${API_URL}/signup`, {
+        const response = await fetch(`${API_URL}/Signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password, firstName, lastName }),
@@ -200,7 +200,7 @@ function displayUserProfile(user) {
     // Toggle dropdown menu visibility e alternar seta
     const dropdownArrow = document.getElementById('dropdownArrow');
     const dropdownMenu = document.getElementById('dropdownMenu');
-    
+
     dropdownArrow.onclick = () => {
         const isOpen = dropdownMenu.style.display === 'block';
         dropdownMenu.style.display = isOpen ? 'none' : 'block';
@@ -210,27 +210,27 @@ function displayUserProfile(user) {
 
     document.getElementById('save-changes')?.addEventListener('click', async (e) => {
         e.preventDefault();
-    
+
         // Obter os valores dos campos do formulário
         const username = document.getElementById('newusername').value.trim();
         const password = document.getElementById('newpassword').value.trim();
         const firstName = document.getElementById('newfirstName').value.trim();
         const lastName = document.getElementById('newlastName').value.trim();
-    
+
         if (!username) {
             alert('O campo de nome de usuário é obrigatório.');
             return;
         }
-    
+
         try {
             const response = await fetch(`${API_URL}/updateProfile`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password, firstName, lastName }),
             });
-    
+
             const data = await response.json();
-    
+
             if (data.error) {
                 alert(data.error);
             } else {
@@ -245,7 +245,7 @@ function displayUserProfile(user) {
             alert('Erro ao salvar as alterações. Tente novamente mais tarde.');
         }
     });
-    
+
 
     // Excluir conta
     document.getElementById('delete-account')?.addEventListener('click', async (e) => {

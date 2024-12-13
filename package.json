@@ -4,7 +4,9 @@
   "description": "Final Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd server && node server",
+    "viteapp": "cd art-rush && npm run dev",
+    "app": "npm-run-all -p server viteapp"
   },
   "keywords": [
     "reactjs"
@@ -12,7 +14,18 @@
   "author": "Silas Sequeira",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.21.1",
-    "node-fetch": "^2.7.0"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.8.4",
+    "node-fetch": "^2.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "vite": "^4.1.0"
   }
 }

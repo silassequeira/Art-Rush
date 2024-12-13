@@ -1,12 +1,12 @@
-import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import "../App.css";
 import "../index.css";
 
 function Layout() {
   return (
     <>
       <header>
-        <nav className="main-navigation">
+        <nav className="flex padding">
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? "active logo" : "logo")}
@@ -17,18 +17,20 @@ function Layout() {
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                isActive ? "active button buttonPurple" : "button buttonPurple"
+                isActive
+                  ? "active button buttonPurple marginRight"
+                  : "button buttonPurple marginRight"
               }
             >
               Log In
             </NavLink>
             <NavLink
-              to="/register"
+              to="/signup"
               className={({ isActive }) =>
                 isActive ? "active button buttonBorder" : "button buttonBorder"
               }
             >
-              Register
+              signup
             </NavLink>
           </div>
         </nav>

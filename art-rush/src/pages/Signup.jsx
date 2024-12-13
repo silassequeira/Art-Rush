@@ -4,12 +4,13 @@ import AuthService from "../services/authService";
 import "../App.css";
 import "../index.css";
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    fullName: "",
   });
 
   const [error, setError] = useState("");
@@ -22,26 +23,33 @@ function Login() {
     }));
   };
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await AuthService.login({
+      // Prepare data to match backend expectations
+      const userData = {
         username: formData.username,
         password: formData.password,
-      });
-      alert("Login bem-sucedido!");
-      navigate("/dashboard");
+        fullName: formData.fullName,
+      };
+
+      await AuthService.Signup(userData);
+
+      // Show success message
+      alert("Registro bem-sucedido!");
+
+      // Redirect to login
+      navigate("/login");
     } catch (error) {
-      setError(error.response?.data?.error || "Erro no login");
+      console.error("Signup error:", error);
+      setError(
+        error?.response?.data?.error || error.message || "Erro no registro"
+      );
     }
   };
 
-  const handleNavigation = () => {
-    navigate("/signup");
-  };
-
   return (
-    <div className="modal flex spaceEvenly column padding" id="loginForm">
+    <div className="modal flex spaceEvenly column padding" id="SignupForm">
       <div className="close-container" onClick={() => navigate("/")}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +68,9 @@ function Login() {
         </svg>
       </div>
 
-      <h2>Welcome to Art Rush</h2>
-      <form className="flex alignItemsLeft column" onSubmit={handleLogin}>
-        <label htmlFor="username">Username or E-mail</label>
+      <h2>Create your account</h2>
+      <form className="flex alignItemsLeft column" onSubmit={handleSignup}>
+        <label htmlFor="username">Username or Email</label>
         <input
           type="text"
           id="username"
@@ -80,18 +88,28 @@ function Login() {
           required
         />
 
+        <label htmlFor="fullName">First and Last Name</label>
+        <input
+          type="text"
+          id="fullName"
+          placeholder="e.g: John Doe..."
+          value={formData.fullName}
+          onChange={handleInputChange}
+          required
+        />
+
         {error && <p className="error">{error}</p>}
 
         <div className="form-buttons centeredMarginTop">
           <a
             className="underline greyDark"
-            id="goToSignup"
-            onClick={handleNavigation}
+            id="goToLogin"
+            onClick={() => navigate("/login")}
           >
-            Don&apos;t have an Art Rush account? - Sign up
+            I already have an account - Log in
           </a>
-          <button type="submit" id="loginSubmit">
-            Log in
+          <button type="submit" id="SignupSubmit">
+            Signup
           </button>
         </div>
       </form>
@@ -99,4 +117,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

@@ -1,8 +1,10 @@
-import React from "react";
-import "../index.css";
+import "../App.css";
 
 function Home() {
-  return <></>;
+  return (
+    <>
+    </>
+  );
 }
 
 export default Home;

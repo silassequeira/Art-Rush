@@ -1,5 +1,5 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "../App.css";
 import "../index.css";
 
 import Modal from "./Modal";
@@ -7,7 +7,7 @@ import Layout from "./Layout";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Signup from "../pages/Signup";
 import NotFound from "../pages/NotFound";
 
 function Navigation() {
@@ -26,10 +26,10 @@ function Navigation() {
             }
           />
           <Route
-            path="register"
+            path="signup"
             element={
               <Modal>
-                <Register />
+                <Signup />
               </Modal>
             }
           />
