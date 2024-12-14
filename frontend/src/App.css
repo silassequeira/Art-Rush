@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700;900&display=swap');
+
+:root {
+
+  --background: #1e1e1e;
+  --white: #ffffff;
+  --grey: #A7A7A7;
+  --grey-light: #D9D9D9;
+  --grey-dark: #7C7C7C;
+  --grey-darker: #5A5A5A;
+  --purple-gradient: linear-gradient(107deg, #792BBA 9.66%, #7F00FF 50%);
+  --purple: #792BBA;
+  --gold: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  --transition: all 0.3s ease;
+  --primary-font: 'Mukta', sans-serif;
+  --logo-font: 'Caveat', sans-serif;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: normal;
+  color: var(--white);
+  background: var(--background);
+  background-color: var(--background);
+  overflow-x: hidden;
+}
+
+.app-container {
+  padding: 1rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .app-container {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+}
+
+label,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--primary-font);
+  font-weight: 800;
+  transition: var(--transition);
+}
+
+h1 {
+  font-size: 3.052rem;
+  margin-top: 0;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2.441rem;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.953rem;
+}
+
+h4 {
+  font-size: 1.563rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+a {
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--grey-light);
+  cursor: pointer;
+}
+
+
+
+input {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: var(--primary-font);
+  padding: 0.6em 1em;
+  width: 90%;
+  border-radius: 15px;
+  text-align: left;
+  border: 1px solid var(--grey-dark);
+  background-color: transparent;
+}
+
+.button,
+input[type="submit"],
+button {
+  border-radius: 15px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 800;
+  font-family: var(--primary-font);
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--white);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+form {
+  width: 100%;
+  height: auto;
+}
+
+form label {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+}
+
+form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.buttonBorder {
+  background-color: transparent;
+  color: var(--grey-light);
+  border-color: var(--grey-light);
+}
+
+.buttonGrey {
+  background-color: var(--grey-darker);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.buttonPurple {
+  background: var(--purple-gradient);
+  color: var(--white);
+  border-color: transparent;
+}
+
+.buttonBorder:hover {
+  color: var(--white);
+  border-color: var(--white);
+  background-color: var(--grey-darker);
+  transform: scale(1.05);
+}
+
+.buttonGrey:hover {
+  background-color: var(--grey);
+  transform: scale(1.05);
+}
+
+.buttonPurple:hover {
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+.greyColor {
+  color: var(--grey);
+}
+
+.greyLight {
+  color: var(--grey-light);
+}
+
+.greyDark {
+  color: var(--grey-dark);
+}
+
+.purpleColor {
+  color: var(--purple);
+}
+
+.textShadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.centeredMarginTop {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: 2.3rem auto;
+  white-space: nowrap;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.spaceEvenly {
+  justify-content: space-evenly;
+}
+
+.alignItemsLeft {
+  align-items: flex-start;
+}
+
+.columnResponsive {
+  column-gap: 15px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.layoutGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+.layoutGridAutoFit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+}
+
+.borderAround {
+  border: 1px solid;
+  padding: 0.25rem 0.5rem;
+  border-radius: 15px;
+}
+
+.borderTop {
+  border-top: 1px solid;
+  padding-top: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.logo {
+  font-family: var(--logo-font);
+  font-size: 2.5rem;
+  color: var(--white);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.form-buttons a {
+  margin-right: 2rem;
+}
+
+.padding {
+  padding: 2rem;
+}
+
+.marginRight {
+  margin-right: 2rem;
+}
+
+.marginBottom {
+  margin-bottom: 2rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.imageContainer {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin: 3rem 0;
+}
+
+.imageContainer .relative {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+@media (min-width: 1200px) {
+  .columnResponsive {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .columnResponsive {
+    column-count: 2;
+  }
+
+  header .padding {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .columnResponsive {
+    column-count: 1;
+  }
+
+  header .padding {
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.369rem;
+  }
+
+  h2 {
+    font-size: 1.999rem;
+  }
+
+  h3 {
+    font-size: 1.777rem;
+  }
+
+  h4 {
+    font-size: 1.333rem;
+  }
+
+  h5 {
+    font-size: 1.125rem;
+  }
+
+
+}
+
+@media (max-width: 795px) {
+  .auth-links .marginRight {
+    margin-right: 1rem;
+  }
+
+  .imageContainer .flex h6 {
+    margin: 0.5rem;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}

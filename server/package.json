@@ -6,6 +6,10 @@
     "mongodb": "^6.12.0"
   },
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "watch-build": "nodemon --watch frontend/src --ext js,ts,vue,css,html --exec \"npm run build\""
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

@@ -1,30 +1,47 @@
+const { connectToMongoDB, getDB } = require('./database');
+const userRoutes = require('./Routes/userRoutes');
+const paintingRoutes = require('./Routes/paintingRoutes');
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
-const { connectToMongoDB } = require('./config/database');
-const userRoutes = require('./routes/userRoutes');
-
-const app = express();
 
 // Middleware
+const app = express();
 app.use(express.json());
+
 app.use(cors({
-    origin: 'http://localhost:5173', // Your React app's URL
+    origin: 'http://localhost:5173', // Vite default port
     credentials: true
 }));
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/paintings', paintingRoutes);
 
-// Connect to MongoDB before starting the server
+const buildPath = path.join(__dirname, '../frontend/build');
+app.use(express.static(buildPath));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+// Middleware to handle 404 errors
+app.use((req, res, next) => {
+    res.status(404).json({ message: 'Resource not found' });
+});
+
+// Function to start the server
 async function startServer() {
     try {
-        // Connect to MongoDB
+        // Ensure we use connectToMongoDB instead of manual connection
         await connectToMongoDB();
 
-        // Start the server
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
-            console.log(`Server started on port ${PORT}`);
+        const db = getDB(); // This should now work reliably
+        console.log('Database connection established:', db.databaseName);
+
+        const port = process.env.PORT || 3000;
+        app.listen(port, () => {
+            console.log(`Server started on port ${port}`);
         });
     } catch (error) {
         console.error('Failed to start server:', error);

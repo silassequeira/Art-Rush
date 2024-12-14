@@ -8,22 +8,42 @@ const router = express.Router();
 router.post('/signup', async (req, res) => {
     const { username, password, fullname } = req.body;
 
+    // Validation checks
     if (!username || !password || !fullname) {
-        return res.status(400).json({ error: 'All fields are required.' });
+        return res.status(400).json({
+            success: false,
+            error: 'All fields are required.'
+        });
     }
 
     try {
+        // Assuming User.create returns the full user object
         const newUser = await User.create(username, password, fullname);
+
         res.status(201).json({
-            message: 'User Signuped successfully!',
-            user: { username: newUser.username, fullName: newUser.fullName }
+            success: true,
+            message: 'User signed up successfully!',
+            user: {
+                username: newUser.username,
+                fullName: newUser.fullName
+            }
         });
     } catch (error) {
-        console.error(error);
+        console.error('Signup Error:', error);
+
         if (error.message === 'User already exists') {
-            return res.status(400).json({ error: 'User already exists.' });
+            return res.status(409).json({
+                success: false,
+                error: 'User already exists.',
+                statusCode: 409
+            });
         }
-        res.status(500).json({ error: 'Error Signuping user.' });
+
+        res.status(500).json({
+            success: false,
+            error: 'Error signing up user.',
+            details: error.message
+        });
     }
 });
 

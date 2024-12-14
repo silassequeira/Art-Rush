@@ -1,0 +1,132 @@
+.home {
+  padding: 1rem;
+}
+
+.modal {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  width: 550px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  border: var(--grey-darker) 1px solid;
+  border-radius: 15px;
+  background-color: var(--background);
+}
+
+.close-container {
+  position: absolute;
+  top: 8%;
+  left: 93%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  padding: 5px;
+  transition: background-color 0.3s ease;
+  border-radius: 50%;
+}
+
+.close-container:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.close-svg {
+  stroke: #666;
+}
+
+.close-container:hover .close-svg {
+  stroke: #000;
+}
+
+.title-container {
+  position: absolute;
+  top: 90%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.relative {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.hamburger-menu {
+  position: relative;
+}
+
+.burger-checkbox {
+  display: none;
+}
+
+.burger-label {
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  flex-direction: column;
+  min-width: 200px;
+  z-index: 10;
+}
+
+.nav-menu.open {
+  display: flex;
+}
+
+.nav-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+}
+
+.nav-menu a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-menu a.active {
+  font-weight: bold;
+}
+
+.nav-menu .purple {
+  color: purple;
+  cursor: pointer;
+}
+
+
+.profile .imageContainer img {
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 795px) {
+  .auth-links .marginRight {
+    margin-right: 1rem;
+  }
+
+  .imageContainer .flex h6 {
+    margin: 0.5rem;
+  }
+}

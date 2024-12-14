@@ -4,8 +4,11 @@
   "description": "Final Project",
   "main": "index.js",
   "scripts": {
+    "build": "cd frontend && npm run build",
+    "nodedemon": "cd server && npm run watch-build",
     "server": "cd server && node server",
-    "viteapp": "cd art-rush && npm run dev",
+    "viteapp": "cd frontend && npm run dev",
+    "buildapp": "npm-run-all server build nodedemon",
     "app": "npm-run-all -p server viteapp"
   },
   "keywords": [
@@ -23,6 +26,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^22.10.2",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
