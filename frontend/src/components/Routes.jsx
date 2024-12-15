@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
+import EditProfile from "../pages/EditProfile";
 import NotFound from "../pages/NotFound";
 
 const Routes = () => {
@@ -15,6 +16,7 @@ const Routes = () => {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/profile" component={Profile} />
+          <Route path="/editprofile" component={EditProfile} />
           <Route component={NotFound} />
         </Switch>
       </Router>

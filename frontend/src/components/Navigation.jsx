@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
+import EditProfile from "../pages/EditProfile";
 
 function Navigation() {
   return (
@@ -38,6 +39,15 @@ function Navigation() {
               }
             />
             <Route path="profile" element={<Profile />} />
+            <Route
+              path="editprofile"
+              element={
+                <Modal>
+                  <Profile />
+                  <EditProfile />
+                </Modal>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

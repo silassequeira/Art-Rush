@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "cd frontend && npm run build",
-    "nodedemon": "cd server && npm run watch-build",
+    "nodemon": "cd server && npm run watch-build",
+    "installserver": "cd server && npm install && cd..",
+    "installfrontend": "cd frontend && npm install && cd..",
     "server": "cd server && node server",
-    "viteapp": "cd frontend && npm run dev",
-    "buildapp": "npm-run-all server build nodedemon",
-    "app": "npm-run-all -p server viteapp"
+    "frontend": "start chrome http://localhost:5173/ && npm-run-all -p server viteapp",
+    "app": "start http://localhost:3000/ && npm run server"
   },
   "keywords": [
     "reactjs"

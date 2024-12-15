@@ -18,22 +18,24 @@ function Home() {
   ];
 
   return (
-    <div className="home columnResponsive">
-      {images.map((image, index) => (
-        <div className="imageContainer" key={index}>
-          <div className="flex">
-            <h6>artistDisplayName</h6>
-            <h6 className="greyColor">medium</h6>
-            <h6 className="greyColor">objectDate</h6>
-          </div>
-          <div className="relative">
-            <img src={image.src} alt={image.alt} />
-            <div className="title-container">
-              <h2 className="textShadow">title</h2>
+    <div className="home">
+      <div className="columnResponsive">
+        {images.map((image, index) => (
+          <div className="imageContainer" key={index}>
+            <div className="flex">
+              <h6>artistDisplayName</h6>
+              <h6 className="greyColor">medium</h6>
+              <h6 className="greyColor">objectDate</h6>
+            </div>
+            <div className="relative">
+              <img src={image.src} alt={image.alt} />
+              <div className="title-container">
+                <h2 className="textShadow">title</h2>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
