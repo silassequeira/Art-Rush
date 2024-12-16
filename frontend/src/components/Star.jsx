@@ -1,18 +1,64 @@
+import "../App.css";
 import PropTypes from "prop-types";
 
-export const Vector = ({ className }) => {
-  return (
-    <>
-      <img className={className} alt="Decorative vector graphic" />
-      <div aria-label="rating-component">
-        <></>
-      </div>
-    </>
+function Star({ filled }) {
+  const star = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 44 42"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20.5338 0.888881C20.918 -0.296294 22.5915 -0.296294 22.9757 0.888881L27.2313 14.0121C27.403 14.5421 27.896 14.901 28.4522 14.901H42.2232C43.4669 14.901 43.9841 16.4956 42.9778 17.2281L31.8368 25.3387C31.387 25.6662 31.1985 26.2469 31.3705 26.7768L35.6259 39.9001C36.0103 41.0853 34.6566 42.071 33.6503 41.3385L22.5094 33.2278C22.0593 32.9003 21.4502 32.9003 21.0001 33.2278L9.85915 41.3385C8.853 42.071 7.49924 41.0853 7.88356 39.9001L12.139 26.7768C12.3109 26.2469 12.1226 25.6662 11.6726 25.3387L0.531655 17.2281C-0.474473 16.4956 0.0426225 14.901 1.28628 14.901H15.0573C15.6135 14.901 16.1064 14.5421 16.2783 14.0121L20.5338 0.888881Z"
+        fill="#D9D9D9"
+      />
+    </svg>
   );
+
+  const starFilled = (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 43 41"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M20.2425 0.876272C20.6212 -0.292091 22.2711 -0.292091 22.6497 0.876272L26.845 13.8133C27.0143 14.3358 27.5003 14.6896 28.0485 14.6896H41.6242C42.8503 14.6896 43.3601 16.2616 42.3681 16.9837L31.3852 24.9792C30.9417 25.3021 30.7559 25.8745 30.9255 26.397L35.1205 39.334C35.4994 40.5025 34.165 41.4742 33.173 40.7521L22.1901 32.7565C21.7463 32.4336 21.1459 32.4336 20.7022 32.7565L9.71929 40.7521C8.72741 41.4742 7.39286 40.5025 7.77173 39.334L11.9668 26.397C12.1363 25.8745 11.9507 25.3021 11.5071 24.9792L0.524113 16.9837C-0.467742 16.2616 0.0420179 14.6896 1.26803 14.6896H14.8437C15.392 14.6896 15.8779 14.3358 16.0474 13.8133L20.2425 0.876272Z"
+        fill="url(#paint0_linear_29_277)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_29_277"
+          x1="0.919872"
+          y1="-3.59792"
+          x2="52.1662"
+          y2="12.8633"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.1" stopColor="#FFCC00" />
+          <stop offset="0.5" stopColor="#FFAA00" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {filled ? starFilled : star}
+    </div>
+  );
+}
+Star.propTypes = {
+  filled: PropTypes.bool.isRequired,
 };
 
-Vector.propTypes = {
-  className: PropTypes.string,
-};
-
-export default Vector;
+export default Star;

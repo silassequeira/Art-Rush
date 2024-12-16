@@ -285,9 +285,13 @@ img {
 
 .restrictiveGrid .imageContainer {
   width: 100%;
-  height: 60%;
+  height: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .restrictiveGrid .imageContainer img {
@@ -302,12 +306,27 @@ img {
   border-radius: 15px;
 }
 
-.profile .borderAround {
+.borderHover:hover {
+  border-color: var(--grey-light);
+  cursor: pointer;
+  transition: var(--transition);
+
+}
+
+
+
+.favorite .borderAround {
   margin: 3rem 1rem;
+  padding: 1rem 1rem;
+}
+
+.marginBottom .borderAround {
+  padding: 0.5rem 1rem;
+  margin: 0;
 }
 
 .borderTop {
-  border-top: 1px solid;
+  border-top: 1px solid var(--grey-darker);
   padding-top: 1rem;
 }
 
@@ -341,6 +360,18 @@ img {
   padding: 2rem;
 }
 
+.paddingRight {
+  padding-right: 2rem;
+}
+
+.paddingBottom {
+  padding-bottom: 2rem;
+}
+
+.paddingLeftRightSmall {
+  padding: 0 1rem;
+}
+
 .margin {
   margin: 2rem;
 }
@@ -353,12 +384,29 @@ img {
   margin-bottom: 2rem;
 }
 
-.noMargin {
-  margin: 0;
+.marginBottomBig {
+  margin-bottom: 7rem;
 }
+
+.marginTop {
+  margin-top: 2rem;
+}
+
+.lessMarginRight {
+  margin-right: 1rem;
+}
+
+.arrowMargin {
+  margin: 0.5rem 0.5rem 0.2rem 0.5rem;
+}
+
 
 .relative {
   position: relative;
+}
+
+.absolute {
+  position: absolute;
 }
 
 .imageContainer {
@@ -375,8 +423,8 @@ img {
 }
 
 .imgRound {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   border-radius: 50%;
 }
@@ -389,8 +437,8 @@ img {
   width: 100%;
 }
 
-.fullWidth {
-  margin-bottom: 1rem;
+.profile .text {
+  display: none;
 }
 
 .hamburger-menu .imgRound {
@@ -403,6 +451,9 @@ img {
   margin-bottom: 0;
 }
 
+.noMargin {
+  margin: 0;
+}
 
 @media (min-width: 1200px) {
   .columnResponsive {
@@ -417,14 +468,20 @@ img {
   .restrictiveGrid {
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+    width: 100%;
+    padding-right: 10%;
     gap: 1rem;
   }
 
-  .favorite .imageContainer img {
-    width: 280px;
+  .restrictiveGrid>*:nth-child(n+6) {
+    display: none;
   }
 
+  .profile .borderAround {
+    margin: 5rem 1rem;
+    padding: 1rem 1rem;
+  }
 
 }
 
@@ -439,6 +496,10 @@ img {
     gap: 2.5rem;
   }
 
+  .marginBottomBig {
+    margin-bottom: 4rem;
+  }
+
   .profile .columnResponsive {
     column-count: 4;
   }
@@ -450,8 +511,21 @@ img {
     gap: 1rem;
   }
 
+  .restrictiveGrid>*:nth-child(n+5) {
+    display: none;
+  }
+
+  .profile .borderAround {
+    margin: 3rem 4rem;
+    padding: 1rem 1rem;
+  }
+
   header .padding {
     padding: 2rem 1rem;
+  }
+
+  form input {
+    margin-bottom: 1rem;
   }
 }
 
@@ -468,6 +542,11 @@ img {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 2.5rem;
+  }
+
+
+  .marginBottomBig {
+    margin-bottom: 2rem;
   }
 
   .restrictiveGrid {
@@ -504,10 +583,6 @@ img {
     font-size: 1.125rem;
   }
 
-
-}
-
-@media (max-width: 795px) {
   .auth-links .marginRight {
     margin-right: 1rem;
   }
@@ -515,6 +590,14 @@ img {
   .imageContainer .flex h6 {
     margin: 0.5rem;
   }
+
+  .profile .borderAround {
+    margin: 3rem 1rem;
+    padding: 1rem 1rem;
+  }
+
+
+
 }
 
 @media (prefers-color-scheme: light) {

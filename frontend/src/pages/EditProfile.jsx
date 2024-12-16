@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../services/AuthContext"; // Corrected import path
 import AuthService from "../services/authService";
 import "../App.css";
 import "../index.css";
 
 function EditProfile() {
   const navigate = useNavigate();
+
+  const { logout } = useAuth(); // Destructure user and logout from useAuth
 
   const [formData, setFormData] = useState({
     username: "",
@@ -101,9 +104,17 @@ function EditProfile() {
 
         {error && <p className="error">{error}</p>}
 
-        <div className="form-buttons centeredMarginTop">
-          <button type="submit" id="SignupSubmit">
-            Signup
+        <div className="form-buttons centeredMarginTop spaceEvenly fullWidth">
+          <a
+            onClick={() => {
+              logout(); // Use logout from context
+            }}
+            className="button buttonBorder"
+          >
+            Delete Account
+          </a>
+          <button className="buttonGrey" type="submit" id="SaveSubmit">
+            Save
           </button>
         </div>
       </form>

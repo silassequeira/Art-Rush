@@ -19,7 +19,7 @@ const NavMenu = () => {
 
   return (
     <div className="hamburger-menu">
-      <div className="flex borderAround">
+      <div className="flex borderAround borderHover">
         <input
           id="burger"
           type="checkbox"
@@ -30,7 +30,9 @@ const NavMenu = () => {
         <div className="imageContainer imgRound">
           <img src="/images/image1.jpeg" alt="Image 1" />
         </div>
-        <label className={`burger-label ${isOpen ? "active" : ""}`}>
+        <label
+          className={`burger-label ${isOpen ? "active username" : "username"}`}
+        >
           {user.fullName.split(" ")[0]} {/* Use user from context */}
         </label>
         <label
@@ -74,11 +76,25 @@ const NavMenu = () => {
           Profile
         </NavLink>
         <NavLink
+          to="/favorites"
+          className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={handleClose}
+        >
+          Favorite Artworks
+        </NavLink>
+        <NavLink
+          to="/saved"
+          className={({ isActive }) => (isActive ? "active" : "")}
+          onClick={handleClose}
+        >
+          Saved Artworks
+        </NavLink>
+        <NavLink
           to="/editprofile"
           className={({ isActive }) => (isActive ? "active" : "")}
           onClick={handleClose}
         >
-          Profile
+          Edit Profile
         </NavLink>
         <a
           onClick={() => {

@@ -8,6 +8,9 @@ import Layout from "./Layout";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+import Favorites from "../pages/Favorites";
+import Saved from "../pages/Saved";
+import PaintingDetail from "../pages/PaintingDetail";
 import Signup from "../pages/Signup";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
@@ -48,6 +51,9 @@ function Navigation() {
                 </Modal>
               }
             />
+            <Route path="favorites" element={<Favorites />} />
+            <Route path="saved" element={<Saved />} />
+            <Route path="/painting/:id" element={<PaintingDetail />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
