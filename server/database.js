@@ -1,8 +1,9 @@
 const { MongoClient } = require('mongodb');
-const url = 'mongodb://localhost:27017'; // Database URL
-const dbName = 'art_rush'; // Database name
 
 let db;
+
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const dbName = process.env.DB_NAME || 'art_rush';
 
 async function connectToMongoDB() {
     try {

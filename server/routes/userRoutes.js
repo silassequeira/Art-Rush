@@ -24,6 +24,7 @@ router.post('/signup', async (req, res) => {
             success: true,
             message: 'User signed up successfully!',
             user: {
+                _id: newUser._id,
                 username: newUser.username,
                 fullName: newUser.fullName
             }
@@ -64,7 +65,11 @@ router.post('/login', async (req, res) => {
 
         res.status(200).json({
             message: 'Login successful!',
-            user: { username: user.username, fullName: user.fullName }
+            user: {
+                _id: user._id,
+                username: user.username,
+                fullName: user.fullName,
+            }
         });
     } catch (error) {
         res.status(500).json({ error: 'Login error.' });
@@ -120,5 +125,44 @@ router.delete('/deleteAccount', async (req, res) => {
         res.status(500).json({ error: 'Error deleting account.' });
     }
 });
+
+router.post('/addInteraction', async (req, res) => {
+    const { userId, paintingId, saved } = req.body;
+
+    if (!userId || !paintingId || saved === undefined) {
+        return res.status(400).json({ error: 'User ID, painting ID, and saved status are required.' });
+    }
+
+    try {
+        const result = await User.addInteraction(userId, paintingId, saved);
+        res.status(200).json({ message: 'Interaction added successfully!', result });
+    } catch (error) {
+        if (error.message === 'Painting not found') {
+            return res.status(404).json({ error: 'Painting not found.' });
+        }
+        console.error('Server error:', error);
+        res.status(500).json({ error: 'Error adding interaction.' });
+    }
+});
+
+router.put('/updateInteraction', async (req, res) => {
+    const { userId, paintingId, saved } = req.body;
+
+    if (!userId || !paintingId || saved === undefined) {
+        return res.status(400).json({ error: 'User ID, painting ID, and saved status are required.' });
+    }
+
+    try {
+        const result = await User.updateInteraction(userId, paintingId, saved);
+        res.status(200).json({ message: 'Interaction updated successfully!', result });
+    } catch (error) {
+        if (error.message === 'Painting not found') {
+            return res.status(404).json({ error: 'Painting not found.' });
+        }
+        console.error('Server error:', error);
+        res.status(500).json({ error: 'Error updating interaction.' });
+    }
+});
+
 
 module.exports = router;

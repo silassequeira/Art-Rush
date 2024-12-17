@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
 import PaintingService from "../services/paintingService";
-import Heart from "./Heart";
+import PaintingItem from "./PaintingItem";
 
 const PaintingsGrid = ({ maxPaintings }) => {
   const [paintings, setPaintings] = useState([]);
@@ -19,15 +19,15 @@ const PaintingsGrid = ({ maxPaintings }) => {
   const observerRef = useRef();
 
   // Image error tracking function
-  const handleImageError = useCallback((objectId, imageUrl) => {
-    console.error(`Image failed to load for ObjectId: ${objectId}`, {
+  const handleImageError = useCallback((_id, imageUrl) => {
+    console.error(`Image failed to load for _id: ${_id}`, {
       url: imageUrl,
       timestamp: new Date().toISOString(),
     });
 
     setFailedImageIds((prev) => {
-      if (!prev.includes(objectId)) {
-        return [...prev, objectId];
+      if (!prev.includes(_id)) {
+        return [...prev, _id];
       }
       return prev;
     });
@@ -125,7 +125,7 @@ const PaintingsGrid = ({ maxPaintings }) => {
 
   // Handle painting click navigation
   const handlePaintingClick = (painting) => {
-    navigate(`/painting/${painting.ObjectId}`, {
+    navigate(`/painting/${painting._id}`, {
       state: { painting }, // Pass painting details to detail page
     });
   };
@@ -139,50 +139,20 @@ const PaintingsGrid = ({ maxPaintings }) => {
   return (
     <>
       {paintings.map((painting, index) => {
-        // Check if this is the last painting to attach intersection observer
-        // Only if maxPaintings is not set
         const isLastPainting = !maxPaintings && paintings.length === index + 1;
 
         return (
-          <div
-            ref={isLastPainting ? lastPaintingElementRef : null}
-            id={`painting-${painting.ObjectId}`}
-            className="imageContainer"
-            key={painting.ObjectId}
-            onClick={() => handlePaintingClick(painting)}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="text flex paddingLeftRightSmall">
-              <h6>{painting.artistDisplayName}</h6>
-              <div className="flex">
-                <h6 className="greyColor lessMarginRight">
-                  {painting.objectDate}
-                </h6>
-                <h6 className="greyColor">{painting.medium}</h6>
-              </div>
-            </div>
-            <div className="imageContainer relative">
-              <img
-                src={painting.primaryImageSmall}
-                alt={painting.title}
-                loading="lazy"
-                onError={() =>
-                  handleImageError(
-                    painting.ObjectId,
-                    painting.primaryImageSmall
-                  )
-                }
-              />
-              <div className="text title-container">
-                <h5 className="text textShadow">{painting.title}</h5>
-              </div>
-              <div className="text heart-container">
-                <Heart filled={false} />
-              </div>
-            </div>
-          </div>
+          <PaintingItem
+            key={painting._id}
+            painting={painting}
+            isLastPainting={isLastPainting}
+            lastPaintingElementRef={lastPaintingElementRef}
+            handleImageError={handleImageError}
+            handlePaintingClick={() => handlePaintingClick(painting)}
+          />
         );
       })}
+      {loading && <div>Loading...</div>}
     </>
   );
 };

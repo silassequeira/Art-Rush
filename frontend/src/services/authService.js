@@ -47,11 +47,6 @@ class AuthService {
                 // Store user data in localStorage
                 localStorage.setItem('user', JSON.stringify(response.data.user));
 
-                // Optional: Store authentication token if provided
-                if (response.data.token) {
-                    localStorage.setItem('token', response.data.token);
-                }
-
                 return {
                     success: true,
                     user: response.data.user,
@@ -125,6 +120,35 @@ class AuthService {
             return response.data;
         } catch (error) {
             throw error.response?.data || { error: 'Erro ao atualizar perfil.' };
+        }
+    }
+
+    // Add Interaction
+    async addInteraction(userId, paintingId, saved) {
+        try {
+            console.log("Sending data to addInteraction:", { userId, paintingId, saved });
+            const response = await axios.post(`${API_URL}/addInteraction`, {
+                userId,
+                paintingId,
+                saved
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error adding interaction:", error.response?.data || error);
+            throw error.response?.data || { error: 'Error adding interaction.' };
+        }
+    }
+
+    async updateInteraction(userId, paintingId, saved) {
+        try {
+            const response = await axios.put(`${API_URL}/updateInteraction`, {
+                userId,
+                paintingId,
+                saved
+            });
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { error: 'Error updating interaction.' };
         }
     }
 

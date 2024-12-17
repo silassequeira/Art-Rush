@@ -1,4 +1,5 @@
 const { getDB } = require('../database');
+const { ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
 
 class User {
@@ -20,7 +21,8 @@ class User {
         const newUser = {
             username,
             password: hashedPassword,
-            fullName: fullname
+            fullName: fullname,
+            interactions: []
         };
 
         await usersCollection.insertOne(newUser);
@@ -51,6 +53,59 @@ class User {
     static async deleteAccount(username) {
         const db = getDB();
         return await db.collection('users').deleteOne({ username });
+    }
+
+    static async addInteraction(userId, paintingId, saved) {
+        const db = getDB();
+        const usersCollection = db.collection('users');
+        const paintingsCollection = db.collection('paintings');
+
+        try {
+            const painting = await paintingsCollection.findOne({ _id: new ObjectId(paintingId) });
+            if (!painting) {
+                throw new Error('Painting not found');
+            }
+
+            const interaction = {
+                paintingId: painting._id,
+                saved: saved
+            };
+
+            const result = await usersCollection.updateOne(
+                { _id: new ObjectId(userId) },
+                { $push: { interactions: interaction } }
+            );
+
+            console.log("Database update result:", result);
+            return result;
+        } catch (error) {
+            console.error("Error in addInteraction:", error);
+            throw error;
+        }
+    }
+
+    static async updateInteraction(userId, paintingId, saved) {
+        const db = getDB();
+        const usersCollection = db.collection('users');
+        const paintingsCollection = db.collection('paintings');
+
+        try {
+            const painting = await paintingsCollection.findOne({ _id: new ObjectId(paintingId) });
+            if (!painting) {
+                throw new Error('Painting not found');
+            }
+
+            const result = await usersCollection.updateOne(
+                { _id: new ObjectId(userId), "interactions.paintingId": new ObjectId(paintingId) },
+                { $set: { "interactions.$.saved": saved } }
+            );
+
+            console.log("Database update result:", result);
+            return result;
+        } catch (error) {
+            console.error("Error in updateInteraction:", error);
+            throw error;
+        }
     }
 }
 
