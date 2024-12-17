@@ -6,37 +6,14 @@
 
 At this time, we do not require API users to Signup or obtain an API key to use the service. Please limit request rate to 80 requests per second.
 
-## Database Setup mongodb
+## Object Id's not working (remove)
 
-paintings
+435653
 
-{
-"ObjectId": "ObjectId",
-"title": "String",
-"medium": "String",
-"objectDate": "Number",
-"primaryImage": "String",
-"primaryImageSmall": "String",
-"artistDisplayName": "String",
-"artistDisplayBio": "String",
-"artistNationality": "String"
-}
+435654
 
-users
+435692
 
-{
-"ObjectId": "ObjectId",
-"username": "String",
-"password": "String",
-"fullName": "String"
-}
+435693
 
-saved_painting
-
-{
-"id": "ObjectId",
-"users.id": "ObjectId",
-"paintings.id": "ObjectId",
-"rating": "Number",
-"favorite": "Boolean"
-}
+435945

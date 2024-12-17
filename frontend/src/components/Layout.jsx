@@ -38,8 +38,8 @@ function Layout() {
                   to="/signup"
                   className={({ isActive }) =>
                     isActive
-                      ? "active button buttonBorder"
-                      : "button buttonBorder"
+                      ? "active signup button buttonBorder"
+                      : "signup button buttonBorder"
                   }
                 >
                   Signup

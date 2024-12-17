@@ -35,7 +35,6 @@ function Signup() {
       const response = await AuthService.signup(userData);
 
       if (response.success) {
-        alert("Registro bem-sucedido!");
         navigate("/login");
       } else {
         // Handle unsuccessful signup
@@ -69,8 +68,11 @@ function Signup() {
         </svg>
       </div>
 
-      <h2>Create your account</h2>
-      <form className="flex alignItemsLeft column" onSubmit={handleSignup}>
+      <form
+        className="column centeredMarginTop padding"
+        onSubmit={handleSignup}
+      >
+        <h2>Create your account</h2>
         <label htmlFor="username">Username or Email</label>
         <input
           type="text"
@@ -101,7 +103,7 @@ function Signup() {
 
         {error && <p className="error">{error}</p>}
 
-        <div className="form-buttons centeredMarginTop">
+        <div className="form-buttons inlineFlex marginTop">
           <a
             className="underline greyDark"
             id="goToLogin"
@@ -109,7 +111,7 @@ function Signup() {
           >
             I already have an account - Log in
           </a>
-          <button type="submit" id="SignupSubmit">
+          <button className="button buttonGrey" type="submit" id="SignupSubmit">
             Signup
           </button>
         </div>

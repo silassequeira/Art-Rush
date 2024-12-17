@@ -3,53 +3,54 @@ import axios from 'axios';
 const API_URL = '/api/paintings';
 
 class PaintingService {
-    // Fetch all paintings with optional filtering and pagination
-    async getPaintings(options = {}) {
-        try {
-            const {
-                page = 1,
-                limit = 10,
-                artist
-            } = options;
+    constructor() {
+        this.api = axios.create({
+            baseURL: API_URL,
+        });
+    }
 
-            const response = await axios.get(API_URL, {
-                params: { page, limit, artist }
+    async getPaintings({ page = 1, limit = 10 } = {}) {
+        try {
+            const response = await this.api.get('/', {
+                params: { page, limit },
             });
 
-            // Ensure data is returned
-            console.log('Painting response:', response.data);
+            const { total, page: currentPage, limit: perPage, data: paintings } = response.data;
 
             return {
                 success: true,
-                total: response.data.total,
-                page: response.data.page,
-                limit: response.data.limit,
-                paintings: response.data.data || [] // Fallback to empty array
+                total,
+                page: currentPage,
+                limit: perPage,
+                paintings,
             };
         } catch (error) {
             console.error('Error fetching paintings:', error);
+
             return {
                 success: false,
                 error: error.response?.data?.error || 'Failed to fetch paintings',
-                statusCode: error.response?.status
+                statusCode: error.response?.status || 500,
             };
         }
     }
 
-    // Fetch a specific painting by ID
     async getPaintingById(id) {
         try {
-            const response = await axios.get(`${API_URL}/${id}`);
+            const response = await this.api.get(`/${id}`);
+            const { data: painting } = response.data;
+
             return {
                 success: true,
-                painting: response.data.data
+                painting,
             };
         } catch (error) {
-            console.error('Error fetching painting:', error);
+            console.error('Error fetching painting by ID:', error);
+
             return {
                 success: false,
                 error: error.response?.data?.error || 'Failed to fetch painting',
-                statusCode: error.response?.status
+                statusCode: error.response?.status || 500,
             };
         }
     }

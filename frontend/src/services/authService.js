@@ -1,34 +1,26 @@
 import axios from 'axios';
 
-// const API_URL = 'http://localhost:3000/api/users'; // Updated to match new routes
-
-const API_URL = '/api/users'; // Use relative path with proxy
+const API_URL = '/api/users';
 
 class AuthService {
-    // Signup
     async signup(userData) {
         try {
             const response = await axios.post(`${API_URL}/signup`, userData);
             return response.data;
         } catch (error) {
-            // More comprehensive error handling
             if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
                 console.error('Signup Error Response:', {
                     status: error.response.status,
                     data: error.response.data,
                     headers: error.response.headers
                 });
 
-                // Return more specific error message
                 return {
                     success: false,
                     error: error.response.data.error || 'Error registering user.',
                     statusCode: error.response.status
                 };
             } else if (error.request) {
-                // The request was made but no response was received
                 console.error('No response received:', error.request);
                 return {
                     success: false,
@@ -36,7 +28,6 @@ class AuthService {
                     statusCode: null
                 };
             } else {
-                // Something happened in setting up the request that triggered an Error
                 console.error('Error setting up request:', error.message);
                 return {
                     success: false,
@@ -52,7 +43,6 @@ class AuthService {
         try {
             const response = await axios.post(`${API_URL}/login`, { username, password });
 
-            // Validate response data
             if (response.data.user) {
                 // Store user data in localStorage
                 localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -65,45 +55,41 @@ class AuthService {
                 return {
                     success: true,
                     user: response.data.user,
-                    message: response.data.message || 'Login realizado com sucesso!'
+                    message: response.data.message
                 };
             } else {
-                throw new Error('Dados de usuário inválidos');
+                throw new Error('Invalid user data');
             }
         } catch (error) {
-            // Comprehensive error handling
             if (error.response) {
-                // Server responded with an error status
                 console.error('Login Error Response:', {
                     status: error.response.status,
                     data: error.response.data,
                     headers: error.response.headers
                 });
-
-                // Specific error handling based on status code
                 switch (error.response.status) {
                     case 401:
                         return {
                             success: false,
-                            error: 'Credenciais inválidas. Verifique seu usuário e senha.',
+                            error: 'Invalid credentials. Check your username and password.',
                             statusCode: 401
                         };
                     case 403:
                         return {
                             success: false,
-                            error: 'Acesso negado. Verifique suas permissões.',
+                            error: 'Access denied. Check your permissions.',
                             statusCode: 403
                         };
                     case 404:
                         return {
                             success: false,
-                            error: 'Usuário não encontrado.',
+                            error: 'User not found.',
                             statusCode: 404
                         };
                     default:
                         return {
                             success: false,
-                            error: error.response.data.error || 'Erro ao fazer login.',
+                            error: error.response.data.error || 'Error logging in.',
                             statusCode: error.response.status
                         };
                 }
@@ -112,7 +98,7 @@ class AuthService {
                 console.error('No response received:', error.request);
                 return {
                     success: false,
-                    error: 'Sem resposta do servidor. Verifique sua conexão de internet.',
+                    error: 'No response from server. Check your internet connection.',
                     statusCode: null
                 };
             } else {
@@ -120,7 +106,7 @@ class AuthService {
                 console.error('Error setting up login request:', error.message);
                 return {
                     success: false,
-                    error: 'Erro interno. Tente novamente.',
+                    error: 'Internal error. Try again.',
                     statusCode: null
                 };
             }
@@ -171,7 +157,7 @@ class AuthService {
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));
     }
-    
+
 }
 
 export default new AuthService();

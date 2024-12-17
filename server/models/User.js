@@ -2,6 +2,7 @@ const { getDB } = require('../database');
 const bcrypt = require('bcryptjs');
 
 class User {
+
     static async create(username, password, fullname) {
         const db = getDB();
         const usersCollection = db.collection('users');

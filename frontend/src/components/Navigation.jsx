@@ -53,7 +53,7 @@ function Navigation() {
             />
             <Route path="favorites" element={<Favorites />} />
             <Route path="saved" element={<Saved />} />
-            <Route path="/painting/:id" element={<PaintingDetail />} />
+            <Route path="painting/:id" element={<PaintingDetail />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

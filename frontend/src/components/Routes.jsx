@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../services/AuthContext";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
@@ -10,24 +10,24 @@ import Favorites from "../pages/Favorites";
 import Saved from "../pages/Saved";
 import PaintingDetail from "../pages/PaintingDetail";
 
-const Routes = () => {
+const AppRoutes = () => {
   return (
     <AuthProvider>
       <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/editprofile" component={EditProfile} />
-          <Route path="/favorites" component={Favorites} />
-          <Route path="/saved" component={Saved} />
-          <Route path="/painting/:id" element={<PaintingDetail />} />
-          <Route component={NotFound} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="editprofile" element={<EditProfile />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="saved" element={<Saved />} />
+          <Route path="painting/:id" element={<PaintingDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );
 };
 
-export default Routes;
+export default AppRoutes;

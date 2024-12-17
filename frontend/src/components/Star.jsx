@@ -45,17 +45,7 @@ function Star({ filled }) {
     </svg>
   );
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {filled ? starFilled : star}
-    </div>
-  );
+  return <div className="Star">{filled ? starFilled : star}</div>;
 }
 Star.propTypes = {
   filled: PropTypes.bool.isRequired,

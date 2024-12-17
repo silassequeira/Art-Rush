@@ -129,7 +129,7 @@ input {
   font-weight: 500;
   font-family: var(--primary-font);
   padding: 0.6em 1em;
-  width: 90%;
+  width: 100%;
   border-radius: 15px;
   text-align: left;
   border: 1px solid var(--grey-dark);
@@ -148,6 +148,7 @@ button {
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 input:focus {
@@ -158,19 +159,16 @@ input:focus {
 
 form {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 form label {
-  margin-top: 1rem;
-  margin-left: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 form input {
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
 }
 
 .buttonBorder {
@@ -210,18 +208,22 @@ form input {
 
 .greyColor {
   color: var(--grey);
+  border-color: var(--grey);
 }
 
 .greyLight {
   color: var(--grey-light);
+  border-color: var(--grey-light);
 }
 
 .greyDark {
   color: var(--grey-dark);
+  border-color: var(--grey-light);
 }
 
 .purpleColor {
   color: var(--purple);
+  border-color: var(--grey-light);
 }
 
 .textShadow {
@@ -235,12 +237,12 @@ form input {
   align-items: center;
 }
 
-.centeredMarginTop {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  margin: 2.3rem auto;
-  white-space: nowrap;
+.inlineFlex {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 .column {
@@ -255,14 +257,23 @@ form input {
   justify-content: flex-start;
 }
 
+.centeredMarginTop {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin: 1.5rem 0.5rem;
+  white-space: nowrap;
+}
+
 .columnResponsive {
   column-gap: 1rem;
 }
 
 img {
   width: 100%;
-  height: auto;
-  display: inline-block;
+  height: 100%;
+  object-fit: cover;
+  transition: object-position 5s ease-in-out;
 }
 
 .layoutGrid {
@@ -270,6 +281,24 @@ img {
   grid-template-columns: repeat(2, 1fr);
   gap: 2.5rem;
 }
+
+.sixColumns {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.portrait {
+  grid-column: 1/ span 2;
+}
+
+
+.stats {
+  grid-column: 5/ span 3;
+}
+
 
 .layoutGridAutoFit {
   display: inline-grid;
@@ -282,6 +311,7 @@ img {
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
+
 
 .restrictiveGrid .imageContainer {
   width: 100%;
@@ -304,21 +334,16 @@ img {
   border: 1px solid var(--grey-darker);
   padding: 0.25rem 0.5rem;
   border-radius: 15px;
+  object-position: center;
 }
 
 .borderHover:hover {
-  border-color: var(--grey-light);
+  border-color: var(--grey);
   cursor: pointer;
+  transform: scale(1.05);
   transition: var(--transition);
-
 }
 
-
-
-.favorite .borderAround {
-  margin: 3rem 1rem;
-  padding: 1rem 1rem;
-}
 
 .marginBottom .borderAround {
   padding: 0.5rem 1rem;
@@ -339,6 +364,10 @@ img {
 }
 
 .fullWidth h3 {
+  margin-right: 1rem;
+}
+
+.fullWidth .marginRight {
   margin-right: 1rem;
 }
 
@@ -368,8 +397,12 @@ img {
   padding-bottom: 2rem;
 }
 
-.paddingLeftRightSmall {
-  padding: 0 1rem;
+.paddingTop {
+  padding-top: 2rem;
+}
+
+.lessPadding {
+  padding: 1rem;
 }
 
 .margin {
@@ -388,8 +421,16 @@ img {
   margin-bottom: 7rem;
 }
 
+.marginBottomSmall {
+  margin-bottom: 1rem;
+}
+
 .marginTop {
   margin-top: 2rem;
+}
+
+.marginTopBig {
+  margin-top: 7rem;
 }
 
 .lessMarginRight {
@@ -413,7 +454,6 @@ img {
   -webkit-column-break-inside: avoid;
   break-inside: avoid;
   page-break-inside: avoid;
-  margin-bottom: 3rem;
 }
 
 .imageContainer .relative {
@@ -423,21 +463,33 @@ img {
 }
 
 .imgRound {
-  width: 200px;
-  height: 200px;
   overflow: hidden;
   border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  margin-bottom: 0;
+  object-position: center;
+  justify-content: center;
 }
 
-.profile .columnResponsive .imageContainer {
+.imgRound img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  margin: auto;
+}
+
+.fiveColumn .columnResponsive .imageContainer {
   margin-bottom: 1rem;
 }
 
-.profile .columnResponsive .imageContainer img {
+.fiveColumn .columnResponsive .imageContainer img {
   width: 100%;
 }
 
-.profile .text {
+header .text,
+.hideElements .text {
   display: none;
 }
 
@@ -460,7 +512,7 @@ img {
     column-count: 3;
   }
 
-  .profile .columnResponsive {
+  .fiveColumn .columnResponsive {
     column-count: 5;
   }
 
@@ -478,11 +530,6 @@ img {
     display: none;
   }
 
-  .profile .borderAround {
-    margin: 5rem 1rem;
-    padding: 1rem 1rem;
-  }
-
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
@@ -496,11 +543,34 @@ img {
     gap: 2.5rem;
   }
 
+  .sixColumns {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+
+  .portrait {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .portrait .imgRound {
+    margin-left: 1.5rem;
+  }
+
+  .portrait,
+  .stats {
+    grid-column: 1 / -1;
+    /* Make each item take up the full row */
+  }
+
   .marginBottomBig {
     margin-bottom: 4rem;
   }
 
-  .profile .columnResponsive {
+  .fiveColumn .columnResponsive {
     column-count: 4;
   }
 
@@ -515,9 +585,13 @@ img {
     display: none;
   }
 
-  .profile .borderAround {
+  .fiveColumn .borderAround {
     margin: 3rem 4rem;
     padding: 1rem 1rem;
+  }
+
+  .stats {
+    width: 80%;
   }
 
   header .padding {
@@ -534,7 +608,7 @@ img {
     column-count: 1;
   }
 
-  .profile .columnResponsive {
+  .fiveColumn .columnResponsive {
     column-count: 3;
   }
 
@@ -544,6 +618,29 @@ img {
     gap: 2.5rem;
   }
 
+  .sixColumns {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+
+  .portrait,
+  .stats {
+    margin-top: 2rem;
+    grid-column: 1 / -1;
+    /* Make each item take up the full row */
+  }
+
+  .portrait {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .portrait .imgRound {
+    margin-left: 1.5rem;
+  }
 
   .marginBottomBig {
     margin-bottom: 2rem;
@@ -591,12 +688,13 @@ img {
     margin: 0.5rem;
   }
 
-  .profile .borderAround {
-    margin: 3rem 1rem;
-    padding: 1rem 1rem;
+  .padding {
+    padding: 0.5rem;
   }
 
-
+  .column .paddingRight {
+    padding-right: 0.5rem;
+  }
 
 }
 

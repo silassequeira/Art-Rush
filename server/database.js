@@ -29,6 +29,15 @@ async function ensureIndexes(database) {
     try {
         // Ensure 'users' collection and indexes
         const usersCollection = database.collection('users');
+        const usersCount = await usersCollection.countDocuments();
+        if (usersCount === 0) {
+            await usersCollection.insertOne({ _id: 'dummy' });
+            await usersCollection.deleteOne({ _id: 'dummy' });
+            console.log("Collection 'users' created.");
+        } else {
+            console.log("Collection 'users' already exists.");
+        }
+
         const usersIndexes = await usersCollection.listIndexes().toArray();
         const hasUsernameIndex = usersIndexes.some(index => index.key && index.key.username === 1);
 
@@ -40,41 +49,26 @@ async function ensureIndexes(database) {
         }
 
         // Ensure 'paintings' collection and indexes
-        const collections = await database.listCollections({ name: 'paintings' }).toArray();
-        let paintingsCollection;
-
-        if (collections.length === 0) {
-            paintingsCollection = await database.createCollection('paintings');
-            console.log("Paintings collection created");
+        const paintingsCollection = database.collection('paintings');
+        const paintingsCount = await paintingsCollection.countDocuments();
+        if (paintingsCount === 0) {
+            await paintingsCollection.insertOne({ _id: 'dummy' });
+            await paintingsCollection.deleteOne({ _id: 'dummy' });
+            console.log("Collection 'paintings' created.");
         } else {
-            paintingsCollection = database.collection('paintings');
+            console.log("Collection 'paintings' already exists.");
         }
 
-        // Ensure indexes for 'paintings'
         const paintingsIndexes = await paintingsCollection.listIndexes().toArray();
-        const hasObjectIdIndex = paintingsIndexes.some(index => index.key && index.key.ObjectId === 1);
+        const hasPaintingIndex = paintingsIndexes.some(index => index.key && index.key.objectID === 1);
 
-        if (!hasObjectIdIndex) {
-            await paintingsCollection.createIndex({ ObjectId: 1 }, { unique: true });
-            console.log("Unique index created on 'ObjectId' for paintings");
+        if (!hasPaintingIndex) {
+            await paintingsCollection.createIndex({ objectID: 1 }, { unique: true });
+            console.log("Index created on 'objectID'");
         } else {
-            console.log("Index on 'ObjectId' already exists");
+            console.log("Index on 'objectID' already exists");
         }
 
-        const hasTextIndex = paintingsIndexes.some(index => index.key && index.key._fts === 'text');
-
-        if (!hasTextIndex) {
-            await paintingsCollection.createIndex(
-                { title: 'text', artist: 'text' },
-                {
-                    name: 'title_artist_text_index',
-                    weights: { title: 3, artist: 2 },
-                }
-            );
-            console.log("Text index created on 'title' and 'artist'");
-        } else {
-            console.log("Text index already exists");
-        }
     } catch (error) {
         console.error("Error ensuring indexes:", error);
     }

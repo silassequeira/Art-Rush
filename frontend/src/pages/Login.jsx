@@ -65,8 +65,8 @@ function Login() {
         </svg>
       </div>
 
-      <h2>Welcome to Art Rush</h2>
-      <form className="flex alignItemsLeft column" onSubmit={handleLogin}>
+      <form className="column centeredMarginTop padding" onSubmit={handleLogin}>
+        <h2>Welcome to Art Rush</h2>
         <label htmlFor="username">Username or E-mail</label>
         <input
           type="text"
@@ -87,13 +87,13 @@ function Login() {
 
         {error && <p className="error">{error}</p>}
 
-        <div className="form-buttons centeredMarginTop">
+        <div className="form-buttons inlineFlex marginTop">
           <a
             className="underline greyDark"
             id="goToSignup"
             onClick={handleNavigation}
           >
-            Don&apos;t have an Art Rush account? - Sign up
+            Don&apos;t have an account? - Sign up
           </a>
           <button type="submit" id="loginSubmit">
             Log in

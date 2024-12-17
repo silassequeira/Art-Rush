@@ -21,12 +21,12 @@ function Saved() {
 
   return (
     <>
-      <div className="profile favorite padding">
+      <div className="hideElements favorite padding">
         <NavLink className="greyColor margin" to="/profile">
           &lt; Back
         </NavLink>
 
-        <div className="flex spaceEvenly borderAround padding">
+        <div className="flex spaceEvenly borderAround lessPadding marginTopBig">
           <div className="flex">
             <span className="greyLight">Rating</span>
             <span className="arrowMargin">{expandArrow}</span>
@@ -41,17 +41,17 @@ function Saved() {
           </div>
         </div>
 
-        <div className="flex column">
-          <div className="flex fullWidth paddingRight marginBottom">
+        <div className="flex column marginTop">
+          <div className="inlineFlex fullWidth marginTop">
             <h3>All Saved Artworks</h3>
-            <div className="flex greyColor borderAround borderHover noMargin">
+            <div className="flex button greyColor buttonBorder borderHover">
               <NavLink className="greyLight lessMarginRight" to="/favorites">
                 Favorites
               </NavLink>
               <Star className="heart" filled={false} />
             </div>
           </div>
-          <div className="columnResponsive">
+          <div className="columnResponsive marginTop">
             <PaintingsGrid />
           </div>
         </div>

@@ -53,7 +53,7 @@ const PaintingDetail = () => {
   if (!painting) return <div>No painting found</div>;
 
   return (
-    <div className="padding absolute">
+    <div className="padding absolute marginTop">
       <div className="relative padding">
         <div className="close-containerPainting" onClick={handleClose}>
           <svg
@@ -78,14 +78,16 @@ const PaintingDetail = () => {
             alt={painting.title}
             className="full-image"
           />
-          <div className="flex column">
-            <h2>{painting.title}</h2>
+          <div className="flex column alignItemsLeft">
             <div>
-              <span className="greyLight">{painting?.artistDisplayName}</span>
+              <h3>{painting.title}</h3>
+              <span className="greyLight centeredMarginTop fullWidth">
+                {painting?.artistDisplayName}
+              </span>
             </div>
             <div>
-              <div className="flex">
-                <div>
+              <div className="inlineFlex marginTop">
+                <div className="marginRight">
                   <span className="greyColor">Date: </span>
                   <span>{painting?.objectDate || "Unknown"}</span>
                 </div>

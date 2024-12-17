@@ -45,17 +45,7 @@ function Heart({ filled }) {
     </svg>
   );
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {filled ? heartFill : heart}
-    </div>
-  );
+  return <div className="Heart">{filled ? heartFill : heart}</div>;
 }
 Heart.propTypes = {
   filled: PropTypes.bool.isRequired,

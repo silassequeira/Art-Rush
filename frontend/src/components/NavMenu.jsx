@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../services/AuthContext"; // Corrected import path
+import PaintingsGrid from "./Painting";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,11 @@ const NavMenu = () => {
   if (!user) return null;
 
   return (
-    <div className="hamburger-menu">
+    <div
+      className={`hamburger-menu ${
+        isOpen ? "active hamburger-menu" : "hamburger-menu"
+      }`}
+    >
       <div className="flex borderAround borderHover">
         <input
           id="burger"
@@ -28,11 +33,9 @@ const NavMenu = () => {
           className="burger-checkbox"
         />
         <div className="imageContainer imgRound">
-          <img src="/images/image1.jpeg" alt="Image 1" />
+          <PaintingsGrid maxPaintings={1} />
         </div>
-        <label
-          className={`burger-label ${isOpen ? "active username" : "username"}`}
-        >
+        <label className="burger-username">
           {user.fullName.split(" ")[0]} {/* Use user from context */}
         </label>
         <label
