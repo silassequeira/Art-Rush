@@ -11,33 +11,10 @@ const PaintingsGrid = ({ maxPaintings }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [failedImageIds, setFailedImageIds] = useState([]);
-
   const navigate = useNavigate();
   const location = useLocation();
 
   const observerRef = useRef();
-
-  // Image error tracking function
-  const handleImageError = useCallback((_id, imageUrl) => {
-    console.error(`Image failed to load for _id: ${_id}`, {
-      url: imageUrl,
-      timestamp: new Date().toISOString(),
-    });
-
-    setFailedImageIds((prev) => {
-      if (!prev.includes(_id)) {
-        return [...prev, _id];
-      }
-      return prev;
-    });
-  }, []);
-
-  useEffect(() => {
-    if (failedImageIds.length > 0) {
-      console.log("Paintings with failed images:", failedImageIds);
-    }
-  }, [failedImageIds]);
 
   useEffect(() => {
     async function fetchPaintings() {
@@ -49,7 +26,6 @@ const PaintingsGrid = ({ maxPaintings }) => {
           limit: limit,
         });
 
-        // Slice paintings if maxPaintings is specified
         if (result.success) {
           const displayPaintings = maxPaintings
             ? result.paintings.slice(0, maxPaintings)
@@ -81,7 +57,6 @@ const PaintingsGrid = ({ maxPaintings }) => {
     fetchPaintings();
   }, [location.state, maxPaintings]);
 
-  // Infinite scroll, disable infinite scroll if maxPaintings is set
   const loadMorePaintings = useCallback(async () => {
     if (maxPaintings) return;
 
@@ -102,12 +77,10 @@ const PaintingsGrid = ({ maxPaintings }) => {
     }
   }, [page, loading, hasMore, maxPaintings]);
 
-  // Disable intersection observer if maxPaintings is set
   const lastPaintingElementRef = useCallback(
     (node) => {
       if (maxPaintings || loading) return;
 
-      // Disconnect previous observer
       if (observerRef.current) observerRef.current.disconnect();
 
       // Create new intersection observer
@@ -117,7 +90,6 @@ const PaintingsGrid = ({ maxPaintings }) => {
         }
       });
 
-      // Observe the last element
       if (node) observerRef.current.observe(node);
     },
     [loading, hasMore, loadMorePaintings, maxPaintings]
@@ -126,14 +98,11 @@ const PaintingsGrid = ({ maxPaintings }) => {
   // Handle painting click navigation
   const handlePaintingClick = (painting) => {
     navigate(`/painting/${painting._id}`, {
-      state: { painting }, // Pass painting details to detail page
+      state: { painting },
     });
   };
 
-  // Render loading state
   if (loading) return <div>Loading Paintings...</div>;
-
-  // Render error state
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -147,7 +116,6 @@ const PaintingsGrid = ({ maxPaintings }) => {
             painting={painting}
             isLastPainting={isLastPainting}
             lastPaintingElementRef={lastPaintingElementRef}
-            handleImageError={handleImageError}
             handlePaintingClick={() => handlePaintingClick(painting)}
           />
         );
@@ -156,6 +124,7 @@ const PaintingsGrid = ({ maxPaintings }) => {
     </>
   );
 };
+
 PaintingsGrid.propTypes = {
   maxPaintings: PropTypes.number,
 };

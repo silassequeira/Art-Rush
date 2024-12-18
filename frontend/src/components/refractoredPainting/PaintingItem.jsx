@@ -8,42 +8,25 @@ const PaintingItem = ({
   isLastPainting,
   lastPaintingElementRef,
   handlePaintingClick,
+  fetchStrategy,
 }) => {
-  // Provide a default value for `saved` if it is undefined
-  const [saved, setSaved] = useState(painting.saved || false);
+  const [saved, setSaved] = useState(
+    fetchStrategy === "saved" ? true : painting.saved || false
+  );
 
   const handleToggleHeart = async () => {
     try {
       const currentUser = AuthService.getCurrentUser();
-      console.log("Current user:", currentUser);
       const userId = currentUser?._id;
+
       if (!userId) {
-        throw new Error("User ID is undefined. Ensure the user is logged in.");
+        throw new Error("User must be logged in to save paintings");
       }
 
-      const paintingId = painting._id;
-
-      console.log(
-        "Toggling heart for paintingId:",
-        paintingId,
-        "saved:",
-        saved
-      );
-
       if (!saved) {
-        const result = await AuthService.addInteraction(
-          userId,
-          paintingId,
-          true
-        );
-        console.log("Interaction added:", result);
+        await AuthService.addInteraction(userId, painting._id, true);
       } else {
-        const result = await AuthService.updateInteraction(
-          userId,
-          paintingId,
-          false
-        );
-        console.log("Interaction updated:", result);
+        await AuthService.updateInteraction(userId, painting._id, false);
       }
 
       setSaved(!saved);
@@ -56,7 +39,6 @@ const PaintingItem = ({
     <div
       ref={isLastPainting ? lastPaintingElementRef : null}
       id={`painting-${painting._id}`}
-      key={painting._id}
       className="imageContainer"
       style={{ cursor: "pointer" }}
     >
@@ -78,7 +60,10 @@ const PaintingItem = ({
           <h5 className="text textShadow">{painting.title}</h5>
         </div>
         <div className="text heart-container">
-          <Heart initialFilled={saved} onToggle={handleToggleHeart} />
+          <Heart
+            initialFilled={fetchStrategy === "saved" ? true : saved}
+            onToggle={handleToggleHeart}
+          />
         </div>
       </div>
     </div>
@@ -93,14 +78,12 @@ PaintingItem.propTypes = {
     medium: PropTypes.string.isRequired,
     primaryImageSmall: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    saved: PropTypes.bool, // Make `saved` optional
+    saved: PropTypes.bool,
   }).isRequired,
-  isLastPainting: PropTypes.bool.isRequired,
-  lastPaintingElementRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
+  isLastPainting: PropTypes.bool,
+  lastPaintingElementRef: PropTypes.func,
   handlePaintingClick: PropTypes.func.isRequired,
+  fetchStrategy: PropTypes.oneOf(["all", "saved"]),
 };
 
 export default PaintingItem;
