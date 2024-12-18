@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 let db;
 
@@ -84,5 +84,6 @@ function getDB() {
 
 module.exports = {
     connectToMongoDB,
-    getDB
+    getDB,
+    ObjectId
 };

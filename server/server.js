@@ -1,6 +1,7 @@
 const { connectToMongoDB, getDB } = require('./database');
 const userRoutes = require('./Routes/userRoutes');
 const paintingRoutes = require('./Routes/paintingRoutes');
+const interactionRoutes = require('./Routes/interactionRoutes');
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
@@ -18,6 +19,7 @@ app.use(cors({
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/paintings', paintingRoutes);
+app.use('/api/interactions', interactionRoutes);
 
 const buildPath = path.join(__dirname, '../frontend/build');
 app.use(express.static(buildPath));

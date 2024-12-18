@@ -1,7 +1,7 @@
 import "../App.css";
 import "../index.css";
 import { NavLink } from "react-router-dom";
-import PaintingsGrid from "../components/Painting";
+import SavedPaintings from "../components/SavedPaintings";
 import { useAuth } from "../services/AuthContext";
 
 function Profile() {
@@ -11,9 +11,7 @@ function Profile() {
     <div className="hideElements fiveColumn padding">
       <div className="sixColumns marginBottomBig fullWidth">
         <div className="portrait spaceEvenly marginTop">
-          <div className="imageContainer imgRound marginRight">
-            <PaintingsGrid maxPaintings={1} />
-          </div>
+          <div className="imageContainer imgRound marginRight"></div>
           <div className="flex column marginTop">
             <h3 className="marginBottom"> {user?.fullName || "Guest"} </h3>
             <NavLink className="button buttonGrey" to="/editprofile">
@@ -49,7 +47,7 @@ function Profile() {
         </div>
 
         <div className="favorite restrictiveGrid marginTop">
-          <PaintingsGrid maxPaintings={6} />
+          {/* <PaintingsGrid maxPaintings={6} />*/}
         </div>
       </div>
 
@@ -63,7 +61,10 @@ function Profile() {
           </NavLink>
         </div>
         <div className="columnResponsive marginTop">
-          <PaintingsGrid maxPaintings={12} />
+          {user && user._id && (
+            <SavedPaintings userId={user._id} /> // Pass the user ID as a prop
+          )}
+          {/* <PaintingsGrid maxPaintings={12} /> */}
         </div>
       </div>
     </div>

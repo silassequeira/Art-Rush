@@ -1,5 +1,4 @@
-const { getDB } = require('../database');
-const { ObjectId } = require('mongodb');
+const { getDB, ObjectId } = require('../database');
 const bcrypt = require('bcryptjs');
 
 class User {
@@ -107,6 +106,43 @@ class User {
             throw error;
         }
     }
+
+    static async getSavedPaintings(userId) {
+        const db = getDB();
+        const usersCollection = db.collection('users');
+        const paintingsCollection = db.collection('paintings');
+
+        // Convert userId to ObjectId
+        const userObjectId = new ObjectId(userId);
+
+        // Fetch the user
+        const user = await usersCollection.findOne({ _id: userObjectId });
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Extract and validate saved painting IDs
+        const savedPaintingIds = user.interactions
+            .filter(interaction => interaction.saved)
+            .map(interaction => new ObjectId(interaction.paintingId));
+
+        if (savedPaintingIds.length === 0) {
+            return [];
+        }
+
+        // Fetch only the paintings that match the IDs exactly
+        const savedPaintings = await paintingsCollection
+            .find({ _id: { $in: savedPaintingIds } })
+            .toArray();
+
+        // Ensure the results match only the expected IDs
+        const filteredPaintings = savedPaintings.filter(painting =>
+            savedPaintingIds.some(id => id.equals(painting._id))
+        );
+
+        return filteredPaintings;
+    }
+
 }
 
 module.exports = User;
