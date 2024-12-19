@@ -42,7 +42,7 @@ const SavedPaintings = ({ userId }) => {
   }
 
   return (
-    <div className="imageContainer relative">
+    <div className="columnResponsive marginTop">
       {SavedPaintings.map((painting) => (
         <img
           key={painting._id}

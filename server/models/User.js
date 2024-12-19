@@ -21,7 +21,6 @@ class User {
             username,
             password: hashedPassword,
             fullName: fullname,
-            interactions: []
         };
 
         await usersCollection.insertOne(newUser);
@@ -65,14 +64,17 @@ class User {
                 throw new Error('Painting not found');
             }
 
-            const interaction = {
-                paintingId: painting._id,
-                saved: saved
-            };
-
+            // Set the painting data directly using paintingId as the key
             const result = await usersCollection.updateOne(
                 { _id: new ObjectId(userId) },
-                { $push: { interactions: interaction } }
+                {
+                    $set: {
+                        [paintingId]: {
+                            paintingId: painting._id,
+                            saved: saved
+                        }
+                    }
+                }
             );
 
             console.log("Database update result:", result);
@@ -94,9 +96,14 @@ class User {
                 throw new Error('Painting not found');
             }
 
+            // Update the painting data directly using paintingId as the key
             const result = await usersCollection.updateOne(
-                { _id: new ObjectId(userId), "interactions.paintingId": new ObjectId(paintingId) },
-                { $set: { "interactions.$.saved": saved } }
+                { _id: new ObjectId(userId) },
+                {
+                    $set: {
+                        [`${paintingId}.saved`]: saved
+                    }
+                }
             );
 
             console.log("Database update result:", result);
@@ -122,12 +129,19 @@ class User {
         }
 
         // Extract and validate saved painting IDs
-        const savedPaintingIds = user.interactions
-            .filter(interaction => interaction.saved)
-            .map(interaction => new ObjectId(interaction.paintingId));
+        const savedPaintingIds = Object.keys(user)
+            .filter(key => user[key].saved === true)
+            .map(key => {
+                const paintingId = user[key].paintingId;
+                if (!ObjectId.isValid(paintingId)) {
+                    throw new Error(`Invalid painting ID: ${paintingId}`);
+                }
+                return new ObjectId(paintingId);
+            });
 
         if (savedPaintingIds.length === 0) {
-            return [];
+            console.log('No saved paintings found.');
+            return []; // Return an empty array if there are no saved paintings
         }
 
         // Fetch only the paintings that match the IDs exactly
@@ -141,6 +155,47 @@ class User {
         );
 
         return filteredPaintings;
+    }
+
+    static async countSaved(userId) {
+        const db = getDB();
+        const usersCollection = db.collection('users');
+
+        // Validate and convert userId to ObjectId
+        if (!ObjectId.isValid(userId)) {
+            throw new Error('Invalid user ID');
+        }
+        const userObjectId = new ObjectId(userId);
+
+        // Fetch the user
+        const user = await usersCollection.findOne({ _id: userObjectId });
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Extract and validate saved painting IDs
+        const savedPaintingIds = Object.keys(user)
+            .filter(key => user[key].saved === true)
+            .map(key => {
+                if (!ObjectId.isValid(user[key].paintingId)) {
+                    throw new Error(`Invalid painting ID: ${user[key].paintingId}`);
+                }
+                return new ObjectId(user[key].paintingId);
+            });
+
+        if (savedPaintingIds.length === 0) {
+            console.log('No saved paintings found.');
+            return 0; // Return 0 if there are no saved paintings
+        }
+
+        // Count the number of matching paintings in the database
+        const paintingsCollection = db.collection('paintings');
+        const count = await paintingsCollection.countDocuments({
+            _id: { $in: savedPaintingIds },
+        });
+
+        console.log(`User ${userId} has ${count} saved paintings.`);
+        return count;
     }
 
 }

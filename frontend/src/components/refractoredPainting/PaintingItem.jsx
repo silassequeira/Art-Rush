@@ -61,7 +61,7 @@ const PaintingItem = ({
         </div>
         <div className="text heart-container">
           <Heart
-            initialFilled={fetchStrategy === "saved" ? true : saved}
+            initialFilled={fetchStrategy === "saved" ? true : false}
             onToggle={handleToggleHeart}
           />
         </div>

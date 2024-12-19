@@ -30,7 +30,7 @@ const PaintingsGrid = ({ fetchStrategy, maxPaintings, userId }) => {
           case "savedPaintings":
             if (!userId)
               throw new Error("User ID required for savedPaintings paintings");
-            result = await InteractionService.getSavedPaintings(userId, {
+            result = await InteractionService.getInteractions(userId, {
               page: currentPage,
               limit,
             });

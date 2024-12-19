@@ -167,6 +167,7 @@ class AuthService {
         }
     }
 
+
     // Logout
     logout() {
         localStorage.removeItem('user');
