@@ -1,9 +1,11 @@
 import "../App.css";
 import { NavLink } from "react-router-dom";
-import PaintingsGrid from "../components/Painting";
+import SavedPaintings from "../components/SavedPaintings";
+import { useAuth } from "../services/AuthContext";
 import Star from "../components/Star";
 
 function Saved() {
+  
   const expandArrow = (
     <svg
       width="12"
@@ -52,7 +54,9 @@ function Saved() {
             </div>
           </div>
           <div className="columnResponsive marginTop">
-            <PaintingsGrid />
+            {user && user._id && (
+              <SavedPaintings userId={user._id} /> // Pass the user ID as a prop
+            )}
           </div>
         </div>
       </div>

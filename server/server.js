@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 // Function to start the server
 async function startServer() {
     try {
-        const filePath = path.join('C:', 'Users', 'silas', 'Web-Development', 'server', 'paintings.json');
+        const filePath = path.join(__dirname, 'paintings.json');
         const fileContents = await fs.readFile(filePath, 'utf8');
         const paintings = JSON.parse(fileContents);
 
