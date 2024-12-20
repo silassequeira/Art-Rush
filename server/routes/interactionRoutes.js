@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { ObjectId } = require('../database');
-const User = require('../models/User');
+const { ObjectId } = require('../database.js');
+const User = require('../models/User.js');
 
 
 // Route to fetch saved paintings

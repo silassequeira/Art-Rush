@@ -1,5 +1,5 @@
 const express = require('express');
-const Painting = require('../models/Paintings');
+const Painting = require('../models/Paintings.js');
 
 const router = express.Router();
 
