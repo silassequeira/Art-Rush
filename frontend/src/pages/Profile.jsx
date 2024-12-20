@@ -58,11 +58,11 @@ function Profile() {
           </div>
           <div className="flex column">
             <span className="greyColor">Artists</span>
-            <h4>25</h4>
+            <h4>{savedCount}</h4>
           </div>
           <div className="flex column">
             <span className="greyColor">Favorite Art</span>
-            <h4>25</h4>
+            <h4>5</h4>
           </div>
         </div>
       </div>
