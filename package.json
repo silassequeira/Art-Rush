@@ -6,8 +6,8 @@
   "scripts": {
     "build": "cd frontend && npm run build",
     "nodemon": "cd server && npm run watch-build",
-    "installserver": "cd server && npm install && cd..",
-    "installfrontend": "cd frontend && npm install && cd..",
+    "installserver": "cd server && npm install && cd ..",
+    "installfrontend": "cd frontend && npm install && cd ..",
     "server": "cd server && node server",
     "viteapp": "cd frontend && npm run dev",
     "frontend": "start chrome http://localhost:5173/ && npm-run-all -p server viteapp",
