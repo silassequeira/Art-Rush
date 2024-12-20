@@ -1,7 +1,7 @@
-import { useAuth } from "../services/AuthContext";
-import { NavLink } from "react-router-dom";
-import PaintingsGrid from "./Painting";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../services/AuthContext";
+import PaintingsGrid from "./Painting";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,9 @@ const NavMenu = () => {
         <div className="imageContainer imgRound">
           <PaintingsGrid maxPaintings={1} />
         </div>
-        <label className="burger-username">{user.fullName.split(" ")[0]}</label>
+        <label className="burger-username">
+          {user.fullName.split(" ")[0]} {/* user from context */}
+        </label>
         <label
           htmlFor="burger"
           className={`burger-label ${
@@ -98,7 +100,7 @@ const NavMenu = () => {
         </NavLink>
         <a
           onClick={() => {
-            logout();
+            logout(); 
             handleClose();
           }}
           className="purple logout"

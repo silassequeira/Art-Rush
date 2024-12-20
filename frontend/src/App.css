@@ -33,6 +33,7 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
@@ -700,20 +701,15 @@ header .text,
 
 @media (prefers-color-scheme: light) {
   :root {
-    --background: #ffffff;
-    --white: #1e1e1e;
-    --grey: #5A5A5A;
-    /* A darker shade for text on a light background */
-    --grey-light: #7C7C7C;
-    /* Slightly darker for improved readability */
-    --grey-dark: #A7A7A7;
-    /* A lighter version of dark grey for a light theme */
-    --grey-darker: #D9D9D9;
-    /* A softer grey for subtle elements */
-    --purple-gradient: linear-gradient(107deg, #7F00FF 9.66%, #792BBA 50%);
-    --purple: #7F00FF;
-    /* Slightly brighter purple for better visibility on light background */
-    --gold: linear-gradient(to right, #FCF6BA, #BF953F, #FBF5B7, #B38728, #AA771C);
-    /* Lighter tones in the gradient for a soft look */
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
   }
 }

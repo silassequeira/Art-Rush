@@ -1,8 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { useAuth } from "../services/AuthContext";
+import { useAuth } from "../services/AuthContext"; 
 import NavMenu from "./NavMenu";
-import "../index.css";
 import "../App.css";
+import "../index.css";
 
 function Layout() {
   const { user } = useAuth();
@@ -22,7 +22,6 @@ function Layout() {
                 <NavMenu />
               </>
             ) : (
-              // Not-logged-in user view
               <>
                 <NavLink
                   to="/login"

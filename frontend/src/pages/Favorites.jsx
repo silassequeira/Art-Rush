@@ -1,22 +1,9 @@
-import PaintingsGrid from "../components/Painting";
-import { useAuth } from "../services/AuthContext";
-import { useNavigate } from "react-router-dom";
+import "../App.css";
 import { NavLink } from "react-router-dom";
 import Heart from "../components/Heart";
-import { useEffect } from "react";
-import "../App.css";
+import PaintingsGrid from "../components/Painting";
 
 function Favorites() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  //Check if user is logged in
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
   const expandArrow = (
     <svg
       width="12"

@@ -1,22 +1,11 @@
-import SavedPaintings from "../components/SavedPaintings";
-import { useAuth } from "../services/AuthContext";
-import { useNavigate } from "react-router-dom";
+import "../App.css";
 import { NavLink } from "react-router-dom";
 import Star from "../components/Star";
-import { useEffect } from "react";
-import "../App.css";
+import { useAuth } from "../services/AuthContext";
+import SavedPaintings from "../components/SavedPaintings";
 
 function Saved() {
   const { user } = useAuth();
-
-  const navigate = useNavigate();
-
-  //Check if user is logged in
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
   return (
     <>
       <div className="hideElements favorite padding">

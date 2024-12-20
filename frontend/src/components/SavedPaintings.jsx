@@ -1,6 +1,6 @@
-import InteractionService from "../services/interactionService";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import InteractionService from "../services/interactionService";
 
 const SavedPaintings = ({ userId }) => {
   const [SavedPaintings, setSavedPaintings] = useState([]);
@@ -14,7 +14,6 @@ const SavedPaintings = ({ userId }) => {
         const response = await InteractionService.getSavedPaintings(userId);
         console.log("Fetched saved paintings:", response);
 
-        // Ensure response.data is an array
         if (response.success && Array.isArray(response.data)) {
           setSavedPaintings(response.data);
         } else {

@@ -89,7 +89,6 @@ class AuthService {
                         };
                 }
             } else if (error.request) {
-                // Request was made but no response received
                 console.error('No response received:', error.request);
                 return {
                     success: false,
@@ -97,7 +96,6 @@ class AuthService {
                     statusCode: null
                 };
             } else {
-                // Error in setting up the request
                 console.error('Error setting up login request:', error.message);
                 return {
                     success: false,
@@ -113,7 +111,6 @@ class AuthService {
         try {
             const response = await axios.put(`${API_URL}/updateProfile`, updates);
 
-            // Update localStorage with new user data
             if (response.data.user) {
                 localStorage.setItem('user', JSON.stringify(response.data.user));
             }
@@ -123,7 +120,6 @@ class AuthService {
         }
     }
 
-    // Add Interaction
     async addInteraction(userId, paintingId, saved) {
         try {
             console.log("Sending data to addInteraction:", { userId, paintingId, saved });
@@ -156,10 +152,9 @@ class AuthService {
     async deleteAccount(username) {
         try {
             const response = await axios.delete(`${API_URL}/deleteAccount`, {
-                data: { username }, // Send username in request body
+                data: { username }, 
             });
 
-            // Clear localStorage if deletion is successful
             localStorage.removeItem('user');
             return response.data;
         } catch (error) {

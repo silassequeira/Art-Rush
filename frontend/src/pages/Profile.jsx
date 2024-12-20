@@ -1,24 +1,15 @@
-import interactionService from "../services/interactionService";
+import "../App.css";
+import "../index.css";
+import { NavLink } from "react-router-dom";
 import SavedPaintings from "../components/SavedPaintings";
 import PaintingsGrid from "../components/Painting";
 import { useAuth } from "../services/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import "../index.css";
-import "../App.css";
+import interactionService from "../services/interactionService";
 
 function Profile() {
   const { user } = useAuth();
   const [savedCount, setSavedCount] = useState(0);
-  const navigate = useNavigate();
-
-  //Check if user is logged in
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
 
   useEffect(() => {
     if (user && user._id) {
@@ -94,7 +85,7 @@ function Profile() {
       </div>
       <div className="marginTop">
         {user && user._id && (
-          <SavedPaintings userId={user._id} /> // Pass the user ID as a prop
+          <SavedPaintings userId={user._id} /> 
         )}
         {/* <PaintingsGrid maxPaintings={12} /> */}
       </div>

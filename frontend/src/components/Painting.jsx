@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
 import PaintingService from "../services/paintingService";
 import PaintingItem from "./PaintingItem";
-import PropTypes from "prop-types";
 
 const PaintingsGrid = ({ maxPaintings }) => {
   const [paintings, setPaintings] = useState([]);
@@ -83,7 +83,6 @@ const PaintingsGrid = ({ maxPaintings }) => {
 
       if (observerRef.current) observerRef.current.disconnect();
 
-      // Create new intersection observer
       observerRef.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           loadMorePaintings();
@@ -95,7 +94,6 @@ const PaintingsGrid = ({ maxPaintings }) => {
     [loading, hasMore, loadMorePaintings, maxPaintings]
   );
 
-  // Handle painting click navigation
   const handlePaintingClick = (painting) => {
     navigate(`/painting/${painting._id}`, {
       state: { painting },

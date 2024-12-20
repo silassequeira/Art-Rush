@@ -1,6 +1,6 @@
-import AuthService from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/authService";
 import "../App.css";
 import "../index.css";
 
@@ -29,7 +29,7 @@ function Signup() {
       const userData = {
         username: formData.username,
         password: formData.password,
-        fullname: formData.fullName, // Note: fullname (lowercase)
+        fullname: formData.fullName, 
       };
 
       const response = await AuthService.signup(userData);
@@ -37,7 +37,6 @@ function Signup() {
       if (response.success) {
         navigate("/login");
       } else {
-        // Handle unsuccessful signup
         setError(response.error || "Erro no registro");
       }
     } catch (error) {

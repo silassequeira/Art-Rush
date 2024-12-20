@@ -1,20 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../services/AuthContext";
-import "../index.css";
 import "../App.css";
+import "../index.css";
 
-import Layout from "./Layout";
 import Modal from "./Modal";
+import Layout from "./Layout";
 
-import PaintingDetail from "../pages/PaintingDetail";
-import EditProfile from "../pages/EditProfile";
-import Favorites from "../pages/Favorites";
-import NotFound from "../pages/NotFound";
-import Profile from "../pages/Profile";
-import Signup from "../pages/Signup";
-import Saved from "../pages/Saved";
-import Login from "../pages/Login";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Favorites from "../pages/Favorites";
+import Saved from "../pages/Saved";
+import PaintingDetail from "../pages/PaintingDetail";
+import Signup from "../pages/Signup";
+import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound";
+import EditProfile from "../pages/EditProfile";
 
 function Navigation() {
   return (

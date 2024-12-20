@@ -1,12 +1,12 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthService from "../services/authService";
 import { useAuth } from "../services/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
   const currentUser = AuthService.getCurrentUser();
-  const { logout } = useAuth(); // Destructure user and logout from useAuth
+  const { logout } = useAuth();
 
   const [formData, setFormData] = useState({
     username: currentUser?.username || "",

@@ -1,8 +1,8 @@
-import AuthService from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "../index.css";
+import { useNavigate } from "react-router-dom";
+import AuthService from "../services/authService";
 import "../App.css";
+import "../index.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ function Login() {
       );
 
       if (response.success) {
-        // Force a page reload to update the layout
         window.location.href = "/";
       } else {
         setError(response.error);

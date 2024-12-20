@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import "../App.css";
+import PropTypes from "prop-types";
 
 function Star({ filled }) {
   const star = (

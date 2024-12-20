@@ -14,7 +14,33 @@
 </head>
 
 <body>
+  <div id="custom-title-bar">
+    <button id="minimize-btn" title="Minimize">-</button>
+    <button id="maximize-btn" title="Maximize">□</button>
+    <button id="close-btn" title="Close">×</button>
+  </div>
   <div id="root"></div>
+  <script>
+    if (window.electronAPI) {
+      document.getElementById('minimize-btn').addEventListener('click', () => {
+        window.electronAPI.minimizeWindow();
+      });
+
+      document.getElementById('maximize-btn').addEventListener('click', () => {
+        window.electronAPI.maximizeWindow();
+      });
+
+      document.getElementById('close-btn').addEventListener('click', () => {
+        window.electronAPI.closeWindow();
+      });
+
+      window.electronAPI.onDarkMode((event, args) => {
+        document.body.classList.toggle('dark-mode', args.enabled);
+      });
+    } else {
+      console.warn('Electron API not available.');
+    }
+  </script>
 </body>
 
 </html>
