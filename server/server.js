@@ -1,5 +1,5 @@
 const { connectToMongoDB, getDB } = require('./database');
-const userRoutes = require('./Routes/userRoutes');
+const userRoutes = require('./routes/userRoutes');
 const paintingRoutes = require('./routes/paintingRoutes');
 const interactionRoutes = require('./Routes/interactionRoutes');
 const express = require('express');
