@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 function Heart({ initialFilled, onToggle, disabled = false }) {
   const [filled, setFilled] = useState(initialFilled);
 
-  // Update local state when prop changes
   useEffect(() => {
     setFilled(initialFilled);
   }, [initialFilled]);

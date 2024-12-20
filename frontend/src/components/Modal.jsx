@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import "../App.css";
 import "../index.css";
+import "../App.css";
 
 function Modal({ children }) {
   return <div className="modal-content">{children}</div>;

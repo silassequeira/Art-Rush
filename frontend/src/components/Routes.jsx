@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Router, { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../services/AuthContext";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import Profile from "../pages/Profile";
-import EditProfile from "../pages/EditProfile";
-import NotFound from "../pages/NotFound";
-import Favorites from "../pages/Favorites";
-import Saved from "../pages/Saved";
 import PaintingDetail from "../pages/PaintingDetail";
+import EditProfile from "../pages/EditProfile";
+import Favorites from "../pages/Favorites";
+import NotFound from "../pages/NotFound";
+import Profile from "../pages/Profile";
+import Signup from "../pages/Signup";
+import Saved from "../pages/Saved";
+import Login from "../pages/Login";
+import Home from "../pages/Home";
 
 const AppRoutes = () => {
   return (

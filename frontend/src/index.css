@@ -63,6 +63,10 @@
   page-break-inside: avoid;
 }
 
+.title-container h5{
+  color: white;
+}
+
 .heart-container {
   display: flex;
   justify-content: center;

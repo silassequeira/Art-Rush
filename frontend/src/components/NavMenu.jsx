@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useAuth } from "../services/AuthContext";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../services/AuthContext"; // Corrected import path
 import PaintingsGrid from "./Painting";
+import { useState } from "react";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth(); // Destructure user and logout from useAuth
+  const { user, logout } = useAuth();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -15,7 +15,6 @@ const NavMenu = () => {
     setIsOpen(false);
   };
 
-  // If no user, return null or handle accordingly
   if (!user) return null;
 
   return (
@@ -35,9 +34,7 @@ const NavMenu = () => {
         <div className="imageContainer imgRound">
           <PaintingsGrid maxPaintings={1} />
         </div>
-        <label className="burger-username">
-          {user.fullName.split(" ")[0]} {/* Use user from context */}
-        </label>
+        <label className="burger-username">{user.fullName.split(" ")[0]}</label>
         <label
           htmlFor="burger"
           className={`burger-label ${
@@ -101,7 +98,7 @@ const NavMenu = () => {
         </NavLink>
         <a
           onClick={() => {
-            logout(); // Use logout from context
+            logout();
             handleClose();
           }}
           className="purple logout"

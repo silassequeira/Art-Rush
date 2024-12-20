@@ -1,6 +1,6 @@
+import InteractionService from "../services/interactionService";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import InteractionService from "../services/interactionService";
 
 const SavedPaintings = ({ userId }) => {
   const [SavedPaintings, setSavedPaintings] = useState([]);

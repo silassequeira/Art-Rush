@@ -1,6 +1,7 @@
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import PaintingService from "../services/paintingService";
+import { useAuth } from "../services/AuthContext";
+import { useState, useEffect } from "react";
 
 const PaintingDetail = () => {
   const navigate = useNavigate();
@@ -9,9 +10,16 @@ const PaintingDetail = () => {
   const [painting, setPainting] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
+
+  //Check if user is logged in
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
-    // First, check if painting was passed through navigation state
     const passedPainting = location.state?.painting;
 
     if (passedPainting) {
@@ -30,8 +38,6 @@ const PaintingDetail = () => {
         } else {
           setError(result.error);
         }
-      } catch {
-        setError("An unexpected error occurred");
       } finally {
         setLoading(false);
       }

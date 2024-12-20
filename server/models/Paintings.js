@@ -2,6 +2,7 @@ const { getDB } = require('../database');
 
 class Painting {
 
+    // Function to fetch all paintings for the infinite scroll 
     static async getAllPaintingsWithPagination({ page = 1, limit = 10 }) {
         const db = getDB();
         const paintingsCollection = db.collection('paintings');

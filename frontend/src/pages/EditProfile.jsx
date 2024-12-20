@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AuthService from "../services/authService";
-import { useAuth } from "../services/AuthContext"; // Corrected import path
+import { useAuth } from "../services/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const UpdateProfile = () => {
   const navigate = useNavigate();

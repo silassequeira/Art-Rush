@@ -8,17 +8,13 @@ const dbName = process.env.DB_NAME || 'art_rush';
 async function connectToMongoDB() {
     try {
         const client = new MongoClient(url);
-
-        // Connect to the MongoDB server
         await client.connect();
         console.log('Connected to MongoDB!');
 
-        // Select the database
         db = client.db(dbName);
 
         // Check and setup indexes only if they are missing
         await ensureIndexes(db);
-
         return db;
     } catch (err) {
         console.error('Error connecting to MongoDB:', err);

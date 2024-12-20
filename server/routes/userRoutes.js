@@ -1,14 +1,13 @@
-const express = require('express');
 const User = require('../models/User.js');
+const express = require('express');
 const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
-// Signup Route
+// Signup Route 
 router.post('/signup', async (req, res) => {
     const { username, password, fullname } = req.body;
 
-    // Validation checks
     if (!username || !password || !fullname) {
         return res.status(400).json({
             success: false,
@@ -17,7 +16,6 @@ router.post('/signup', async (req, res) => {
     }
 
     try {
-        // Assuming User.create returns the full user object
         const newUser = await User.create(username, password, fullname);
 
         res.status(201).json({
@@ -56,24 +54,20 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({ error: 'Username and password are required.' });
     }
 
-    try {
-        const user = await User.findByUsername(username);
+    const user = await User.findByUsername(username);
 
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ error: 'Invalid credentials.' });
-        }
-
-        res.status(200).json({
-            message: 'Login successful!',
-            user: {
-                _id: user._id,
-                username: user.username,
-                fullName: user.fullName,
-            }
-        });
-    } catch (error) {
-        res.status(500).json({ error: 'Login error.' });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        return res.status(401).json({ error: 'Invalid credentials.' });
     }
+
+    res.status(200).json({
+        message: 'Login successful!',
+        user: {
+            _id: user._id,
+            username: user.username,
+            fullName: user.fullName,
+        }
+    });
 });
 
 // Update Profile Route
@@ -84,25 +78,20 @@ router.put('/updateProfile', async (req, res) => {
         return res.status(400).json({ error: 'Username is required.' });
     }
 
-    try {
-        const updates = {};
-        if (password) updates.password = password;
-        if (fullName) updates.fullName = fullName;
+    const updates = {};
+    if (password) updates.password = password;
+    if (fullName) updates.fullName = fullName;
 
-        const result = await User.updateProfile(username, updates);
+    const result = await User.updateProfile(username, updates);
 
-        if (!result) {
-            return res.status(404).json({ error: 'User not found.' });
-        }
-
-        res.status(200).json({
-            message: 'Profile updated successfully!',
-            user: result
-        });
-    } catch (error) {
-        console.error('Server error:', error);
-        res.status(500).json({ error: 'Error updating profile.' });
+    if (!result) {
+        return res.status(404).json({ error: 'User not found.' });
     }
+
+    res.status(200).json({
+        message: 'Profile updated successfully!',
+        user: result
+    });
 });
 
 // Delete Account Route
@@ -113,19 +102,16 @@ router.delete('/deleteAccount', async (req, res) => {
         return res.status(400).json({ error: 'Username is required.' });
     }
 
-    try {
-        const result = await User.deleteAccount(username);
+    const result = await User.deleteAccount(username);
 
-        if (result.deletedCount === 0) {
-            return res.status(404).json({ error: 'User not found.' });
-        }
-
-        res.status(200).json({ message: 'Account deleted successfully!' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error deleting account.' });
+    if (result.deletedCount === 0) {
+        return res.status(404).json({ error: 'User not found.' });
     }
+
+    res.status(200).json({ message: 'Account deleted successfully!' });
 });
 
+// Route for handling saved paintings
 router.post('/addInteraction', async (req, res) => {
     const { userId, paintingId, saved } = req.body;
 
@@ -133,18 +119,11 @@ router.post('/addInteraction', async (req, res) => {
         return res.status(400).json({ error: 'User ID, painting ID, and saved status are required.' });
     }
 
-    try {
-        const result = await User.addInteraction(userId, paintingId, saved);
-        res.status(200).json({ message: 'Interaction added successfully!', result });
-    } catch (error) {
-        if (error.message === 'Painting not found') {
-            return res.status(404).json({ error: 'Painting not found.' });
-        }
-        console.error('Server error:', error);
-        res.status(500).json({ error: 'Error adding interaction.' });
-    }
+    const result = await User.addInteraction(userId, paintingId, saved);
+    res.status(200).json({ message: 'Interaction added successfully!', result });
 });
 
+// Route for updating if painting is saved or not
 router.put('/updateInteraction', async (req, res) => {
     const { userId, paintingId, saved } = req.body;
 
@@ -152,16 +131,8 @@ router.put('/updateInteraction', async (req, res) => {
         return res.status(400).json({ error: 'User ID, painting ID, and saved status are required.' });
     }
 
-    try {
-        const result = await User.updateInteraction(userId, paintingId, saved);
-        res.status(200).json({ message: 'Interaction updated successfully!', result });
-    } catch (error) {
-        if (error.message === 'Painting not found') {
-            return res.status(404).json({ error: 'Painting not found.' });
-        }
-        console.error('Server error:', error);
-        res.status(500).json({ error: 'Error updating interaction.' });
-    }
+    const result = await User.updateInteraction(userId, paintingId, saved);
+    res.status(200).json({ message: 'Interaction updated successfully!', result });
 });
 
 

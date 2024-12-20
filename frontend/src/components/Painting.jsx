@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import PropTypes from "prop-types";
 import { useNavigate, useLocation } from "react-router-dom";
 import PaintingService from "../services/paintingService";
 import PaintingItem from "./PaintingItem";
+import PropTypes from "prop-types";
 
 const PaintingsGrid = ({ maxPaintings }) => {
   const [paintings, setPaintings] = useState([]);

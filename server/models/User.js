@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 class User {
 
+    // Function to create a new user
     static async create(username, password, fullname) {
         const db = getDB();
         const usersCollection = db.collection('users');
@@ -32,6 +33,7 @@ class User {
         return await db.collection('users').findOne({ username });
     }
 
+    // Function to update the user profile 
     static async updateProfile(username, updates) {
         const db = getDB();
         const usersCollection = db.collection('users');
@@ -53,6 +55,7 @@ class User {
         return await db.collection('users').deleteOne({ username });
     }
 
+    // Function that adds the interaction for saving paintings
     static async addInteraction(userId, paintingId, saved) {
         const db = getDB();
         const usersCollection = db.collection('users');
@@ -85,6 +88,7 @@ class User {
         }
     }
 
+    // Function that updates if the painting is saved or not
     static async updateInteraction(userId, paintingId, saved) {
         const db = getDB();
         const usersCollection = db.collection('users');
@@ -114,6 +118,7 @@ class User {
         }
     }
 
+    // Function that retrieves all of the saved paintings
     static async getSavedPaintings(userId) {
         const db = getDB();
         const usersCollection = db.collection('users');
@@ -149,7 +154,6 @@ class User {
             .find({ _id: { $in: savedPaintingIds } })
             .toArray();
 
-        // Ensure the results match only the expected IDs
         const filteredPaintings = savedPaintings.filter(painting =>
             savedPaintingIds.some(id => id.equals(painting._id))
         );
@@ -157,6 +161,7 @@ class User {
         return filteredPaintings;
     }
 
+    // Function that counts the number of saved paintings
     static async countSaved(userId) {
         const db = getDB();
         const usersCollection = db.collection('users');

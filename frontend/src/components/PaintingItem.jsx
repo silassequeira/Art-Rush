@@ -1,6 +1,6 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
 import AuthService from "../services/authService";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import Heart from "./Heart";
 
 const PaintingItem = ({
@@ -9,7 +9,6 @@ const PaintingItem = ({
   lastPaintingElementRef,
   handlePaintingClick,
 }) => {
-  // Provide a default value for `saved` if it is undefined
   const [saved, setSaved] = useState(painting.saved || false);
 
   const handleToggleHeart = async () => {

@@ -1,6 +1,6 @@
-import "../App.css";
-import "../index.css";
 import PaintingsGrid from "../components/Painting";
+import "../index.css";
+import "../App.css";
 
 function Home() {
   return (

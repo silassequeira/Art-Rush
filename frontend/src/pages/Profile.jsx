@@ -1,15 +1,24 @@
-import "../App.css";
-import "../index.css";
-import { NavLink } from "react-router-dom";
+import interactionService from "../services/interactionService";
 import SavedPaintings from "../components/SavedPaintings";
 import PaintingsGrid from "../components/Painting";
 import { useAuth } from "../services/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import interactionService from "../services/interactionService";
+import { NavLink } from "react-router-dom";
+import "../index.css";
+import "../App.css";
 
 function Profile() {
-  const { user } = useAuth(); // Destructure user and logout from useAuth
+  const { user } = useAuth();
   const [savedCount, setSavedCount] = useState(0);
+  const navigate = useNavigate();
+
+  //Check if user is logged in
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (user && user._id) {

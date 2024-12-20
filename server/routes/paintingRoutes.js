@@ -1,29 +1,22 @@
-const express = require('express');
 const Painting = require('../models/Paintings.js');
+const express = require('express');
 
 const router = express.Router();
 
+// Route for fetching all paintings
 router.get('/', async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
 
-    try {
-        const response = await Painting.getAllPaintingsWithPagination({ page, limit });
-        res.status(200).json({
-            success: true,
-            ...response,
-        });
-    } catch (error) {
-        console.error('Error fetching paintings with pagination:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Error fetching paintings with pagination.',
-        });
-    }
+    const response = await Painting.getAllPaintingsWithPagination({ page, limit });
+    res.status(200).json({
+        success: true,
+        ...response,
+    });
 });
 
+// Route for fetching a single painting
 router.get('/:id', async (req, res) => {
-    const { id } = req.params; // Use 'id' to match the parameter name in the route
-
+    const { id } = req.params;
     try {
         const painting = await Painting.getPaintingById(id);
         res.status(200).json({
