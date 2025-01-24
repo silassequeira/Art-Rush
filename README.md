@@ -2,7 +2,10 @@
 
 Silas Sequeira & Valdemar Armindo : Master in Design and Multimedia FCTUC 2023/2024
 
-This project is a Single Page Web Application called **Art Rush**. It features a React-based front-end powered by Vite and a Node.js/Express backend with MongoDB for the database. The application allows users to browse, save & rate historic european artworks.
+This project is a Single Page Web Application called **Art Rush**. It features a React-based front-end powered by Vite and a Node.js/Express backend with MongoDB for the database. The application allows users to browse, save & rate historic european artworks. The application encrypts passwords in such a way that even the developers cannot access the utility passwords. The application is highly flexible and suitable for computers, phones, tablets, as well as its desktop version.Another interactive feature is that the background color of the web page changes to match the background color of the user's browser. If the browser background is white, the page will display a white background. Similarly, if the browser background is black, the page will also have a black background.
+
+
+## The link to the git repository is https://github.com/silassequeira/Web-Development
 
 ## Prerequisites
 
@@ -20,6 +23,13 @@ Make sure you have the following installed on your system before continuing:
    1. cd "TO_THIS_FOLDER_PATH" // for example : cd "C:\Users\silas\Web-Development"
    2. `npm run installserver`
    3. `npm run app`
+   4. Open your browser and navigate to `http://localhost:3000` to access the application
+
+   5. To run in frontend mode follows:
+      5.1 `npm run installfrontend` 
+      5.2 `npm run frontend`
+      5.3  Directed towards `http://localhost:5173` otherwise Open your browser and navigate to `http://localhost:5173` to access the application
+       
 
 4. You should now see the SPA running! For more information and development commands :
 

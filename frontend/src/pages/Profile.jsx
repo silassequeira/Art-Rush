@@ -79,11 +79,19 @@ function Profile() {
           </div>
           <div className="flex column">
             <span className="greyColor">Artists</span>
+<<<<<<< HEAD
             <h4>{savedCountArtists}</h4>
           </div>
           <div className="flex column">
             <span className="greyColor">Favorite Art</span>
             <h4>{favoriteCount}</h4>
+=======
+            <h4>{savedCount}</h4>
+          </div>
+          <div className="flex column">
+            <span className="greyColor">Favorite Art</span>
+            <h4>5</h4>
+>>>>>>> ee560a8a51bd9282775030c074ea90406d35bfc6
           </div>
         </div>
       </div>
