@@ -7,12 +7,14 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     if (AuthService.isLoggedIn()) {
       const currentUser = AuthService.getCurrentUser();
       setUser(currentUser);
     }
+    setLoading(false); // Set loading to false after checking user
   }, []);
 
   const login = async (username, password) => {
@@ -30,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, setUser }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

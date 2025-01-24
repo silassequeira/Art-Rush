@@ -81,7 +81,7 @@ const UpdateProfile = () => {
       </div>
 
       <form
-        className="column centeredMarginTop padding"
+        className="column centeredMarginTop justifyStart padding"
         onSubmit={handleSaveProfile}
       >
         <h2>Edit Profile</h2>

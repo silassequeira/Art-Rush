@@ -14,7 +14,7 @@ async function connectToMongoDB() {
         db = client.db(dbName);
 
         // Check and setup indexes only if they are missing
-        await ensureIndexes(db);
+        await createIndexes(db);
         return db;
     } catch (err) {
         console.error('Error connecting to MongoDB:', err);
@@ -22,7 +22,7 @@ async function connectToMongoDB() {
     }
 }
 
-async function ensureIndexes(database) {
+async function createIndexes(database) {
     try {
         // Ensure 'users' collection and indexes
         const usersCollection = database.collection('users');

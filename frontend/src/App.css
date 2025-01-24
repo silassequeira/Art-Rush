@@ -9,8 +9,9 @@
   --grey-light: #D9D9D9;
   --grey-dark: #7C7C7C;
   --grey-darker: #5A5A5A;
+  --grey-darkest: #404040;
   --purple-gradient: linear-gradient(107deg, #792BBA 9.66%, #7F00FF 50%);
-  --purple: #792BBA;
+  --purple: #a34aeb;
   --gold: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
   --transition: all 0.3s ease;
   --primary-font: 'Mukta', sans-serif;
@@ -46,7 +47,6 @@ body {
 .app-container {
   padding: 1rem;
   margin: 0 auto;
-  width: 100%;
 }
 
 @media (max-width: 1200px) {
@@ -151,6 +151,12 @@ button {
   white-space: nowrap;
 }
 
+.button:hover,
+input[type="submit"]:hover,
+button:hover {
+  transform: scale(1.05);
+}
+
 input:focus {
   outline: none;
   border-color: var(--white);
@@ -185,7 +191,7 @@ form input {
 
 .buttonPurple {
   background: var(--purple-gradient);
-  color: var(--white);
+  color: white;
   border-color: transparent;
 }
 
@@ -237,6 +243,20 @@ form input {
   align-items: center;
 }
 
+.flexWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .inlineFlex {
   display: inline-flex;
   flex-direction: row;
@@ -250,7 +270,11 @@ form input {
 }
 
 .spaceEvenly {
-  justify-content: space-evenly;
+  justify-content: space-evenly !important;
+}
+
+.justifyStart {
+  justify-content: start !important;
 }
 
 .alignItemsLeft {
@@ -263,17 +287,30 @@ form input {
   justify-content: center;
   margin: 1.5rem 0.5rem;
   white-space: nowrap;
+  max-height: 70%;
 }
 
 .columnResponsive {
+  display: inline-block;
+  column-fill: balance;
   column-gap: 1rem;
+}
+
+.columnResponsive .imageContainer {
+  max-height: 100%;
 }
 
 img {
   width: 100%;
   height: 100%;
+  max-height: 800px;
   object-fit: cover;
-  transition: object-position 5s ease-in-out;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+img.loaded {
+  opacity: 1;
 }
 
 .layoutGrid {
@@ -312,10 +349,9 @@ img {
   gap: 1rem;
 }
 
-
 .restrictiveGrid .imageContainer {
-  width: 100%;
-  height: 100%;
+  max-width: 300px;
+  height: 400px;
   overflow: hidden;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -344,7 +380,6 @@ img {
   transition: var(--transition);
 }
 
-
 .marginBottom .borderAround {
   padding: 0.5rem 1rem;
   margin: 0;
@@ -361,6 +396,14 @@ img {
 
 .fullWidth {
   width: 100%;
+}
+
+.widthFitContent {
+  width: fit-content;
+}
+
+.fullHeight {
+  height: 100%;
 }
 
 .fullWidth h3 {
@@ -397,6 +440,10 @@ img {
   padding-bottom: 2rem;
 }
 
+.lessPaddingBottom {
+  padding-bottom: 1rem;
+}
+
 .paddingTop {
   padding-top: 2rem;
 }
@@ -405,8 +452,17 @@ img {
   padding: 1rem;
 }
 
+
+.lessPaddingRight {
+  padding-right: 0.8rem;
+}
+
 .margin {
   margin: 2rem;
+}
+
+.lessMargin {
+  margin: 1rem;
 }
 
 .marginRight {
@@ -437,6 +493,10 @@ img {
   margin-right: 1rem;
 }
 
+.marginSides {
+  margin: 1rem 2rem;
+}
+
 .arrowMargin {
   margin: 0.5rem 0.5rem 0.2rem 0.5rem;
 }
@@ -454,6 +514,9 @@ img {
   -webkit-column-break-inside: avoid;
   break-inside: avoid;
   page-break-inside: avoid;
+  width: 100%;
+  max-height: 800px;
+  margin-bottom: 1rem;
 }
 
 .imageContainer .relative {
@@ -488,6 +551,25 @@ img {
   width: 100%;
 }
 
+.textTruncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10em;
+}
+
+.textTruncateLong {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 25em;
+  min-width: 10em;
+}
+
+.maxWidth {
+  max-width: 100%;
+}
+
 header .text,
 .hideElements .text {
   display: none;
@@ -507,7 +589,12 @@ header .text,
   margin: 0;
 }
 
+.restrictiveGrid .imageContainer {
+  max-height: 600px;
+}
+
 @media (min-width: 1200px) {
+
   .columnResponsive {
     column-count: 3;
   }
@@ -519,8 +606,7 @@ header .text,
 
   .restrictiveGrid {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     width: 100%;
     padding-right: 10%;
     gap: 1rem;
@@ -576,12 +662,11 @@ header .text,
 
   .restrictiveGrid {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 
-  .restrictiveGrid>*:nth-child(n+5) {
+  .restrictiveGrid>*:nth-child(n+4) {
     display: none;
   }
 
@@ -648,11 +733,11 @@ header .text,
 
   .restrictiveGrid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  .restrictiveGrid>*:nth-child(n+4) {
+  .restrictiveGrid>*:nth-child(n+3) {
     display: none;
   }
 
@@ -696,6 +781,81 @@ header .text,
     padding-right: 0.5rem;
   }
 
+  .hide {
+    display: none;
+  }
+
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  span,
+  input,
+  label,
+  a,
+  button,
+  h6 {
+    font-size: 0.875rem;
+  }
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  -webkit-mask: conic-gradient(from 15deg, #0000, #000);
+  animation: l26 1s infinite steps(12);
+  position: fixed;
+  top: 50%;
+  right: 50%;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background:
+    radial-gradient(closest-side at 50% 12.5%,
+      var(--purple) 96%, #0000) 50% 0/20% 80% repeat-y,
+    radial-gradient(closest-side at 12.5% 50%,
+      var(--purple) 96%, #0000) 0 50%/80% 20% repeat-x;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  grid-area: 1/1;
+  transform: rotate(30deg);
+}
+
+.loader:after {
+  transform: rotate(60deg);
+}
+
+@keyframes l26 {
+  100% {
+    transform: rotate(1turn)
+  }
 }
 
 @media (prefers-color-scheme: light) {

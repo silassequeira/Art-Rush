@@ -1,7 +1,7 @@
 import { useAuth } from "../services/AuthContext";
 import { NavLink } from "react-router-dom";
-import PaintingsGrid from "./Painting";
 import { useState } from "react";
+import SavedPaintings from "./SavedPaintings";
 
 const NavMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,98 +15,128 @@ const NavMenu = () => {
     setIsOpen(false);
   };
 
+  let timeoutId;
+
+  const handleMouseLeave = () => {
+    timeoutId = setTimeout(() => {
+      setIsOpen(false);
+    }, 300); // Adjust the timeout duration as needed
+  };
+
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutId);
+    setIsOpen(true);
+  };
+
   if (!user) return null;
 
   return (
-    <div
-      className={`hamburger-menu ${
-        isOpen ? "active hamburger-menu" : "hamburger-menu"
-      }`}
-    >
-      <div className="flex borderAround borderHover">
-        <input
-          id="burger"
-          type="checkbox"
-          checked={isOpen}
-          onChange={handleToggle}
-          className="burger-checkbox"
-        />
-        <div className="imageContainer imgRound">
-          <PaintingsGrid maxPaintings={1} />
-        </div>
-        <label className="burger-username">{user.fullName.split(" ")[0]}</label>
-        <label
-          htmlFor="burger"
-          className={`burger-label ${
-            isOpen ? "active burgerContainer" : "burgerContainer"
-          }`}
+    <>
+      <div
+        onMouseEnter={handleMouseEnter}
+        className={`hamburger-menu ${
+          isOpen ? "active hamburger-menu" : "hamburger-menu"
+        }`}
+        style={{ cursor: "pointer" }}
+      >
+        <div
+          className="flex borderAround borderHover"
+          onMouseEnter={handleMouseEnter}
         >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 684 484"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M42 42.031H642M42 242.03H642M42 442.03H642"
-              stroke="#5A5A5A"
-              strokeWidth="83.3333"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          <input
+            id="burger"
+            type="checkbox"
+            checked={isOpen}
+            onChange={handleToggle}
+            className="burger-checkbox"
+          />
+          <div className="imgRound favorite">
+            <SavedPaintings
+              userId={user._id}
+              maxPaintings={1}
+              interactionType={"favorite"}
+              layout={"flex"}
             />
-          </svg>{" "}
-        </label>
-      </div>
-      {isOpen && <div className="nav-menu-overlay" onClick={handleClose} />}
+          </div>
+          <label className="burger-username">
+            {user.fullName.split(" ")[0]}
+          </label>
+          <label
+            htmlFor="burger"
+            className={`burgerContainer `}
+            onMouseLeave={handleMouseLeave}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 684 484"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M42 42.031H642M42 242.03H642M42 442.03H642"
+                stroke="#5A5A5A"
+                strokeWidth="83.3333"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>{" "}
+          </label>
+        </div>
+        {isOpen && <div className="nav-menu-overlay" onClick={handleClose} />}
 
-      <div className={`nav-menu ${isOpen ? "open" : ""}`}>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "active" : "")}
-          onClick={handleClose}
+        <div
+          className={`nav-menu ${isOpen ? "open" : ""}`}
+          onMouseLeave={handleMouseLeave}
         >
-          Home
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className={({ isActive }) => (isActive ? "active" : "")}
-          onClick={handleClose}
-        >
-          Profile
-        </NavLink>
-        <NavLink
-          to="/favorites"
-          className={({ isActive }) => (isActive ? "active" : "")}
-          onClick={handleClose}
-        >
-          Favorite Artworks
-        </NavLink>
-        <NavLink
-          to="/saved"
-          className={({ isActive }) => (isActive ? "active" : "")}
-          onClick={handleClose}
-        >
-          Saved Artworks
-        </NavLink>
-        <NavLink
-          to="/editprofile"
-          className={({ isActive }) => (isActive ? "active" : "")}
-          onClick={handleClose}
-        >
-          Edit Profile
-        </NavLink>
-        <a
-          onClick={() => {
-            logout();
-            handleClose();
-          }}
-          className="purple logout"
-        >
-          Logout
-        </a>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={handleClose}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={handleClose}
+          >
+            Profile
+          </NavLink>
+          <NavLink
+            to="/favorites"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={handleClose}
+          >
+            Favorite Artworks
+          </NavLink>
+          <NavLink
+            to="/saved"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={handleClose}
+          >
+            Saved Artworks
+          </NavLink>
+          <NavLink
+            to="/editprofile"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setIsOpen(false)}
+          >
+            Edit Profile
+          </NavLink>
+          <NavLink
+            to="/"
+            onClick={() => {
+              logout();
+              handleClose();
+            }}
+            className="purple logout"
+          >
+            Logout
+          </NavLink>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -65,39 +65,44 @@ function Login() {
         </svg>
       </div>
 
-      <form className="column centeredMarginTop padding" onSubmit={handleLogin}>
+      <form
+        className="column centeredMarginTop justifyStart padding"
+        onSubmit={handleLogin}
+      >
         <h2>Welcome to Art Rush</h2>
-        <label htmlFor="username">Username or E-mail</label>
-        <input
-          type="text"
-          id="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
+        <div className="flex column centered ">
+          <label htmlFor="username">Username or E-mail</label>
+          <input
+            type="text"
+            id="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            required
+          />
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          required
-        />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
 
-        {error && <p className="error">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
-        <div className="form-buttons inlineFlex marginTop">
-          <a
-            className="underline greyDark"
-            id="goToSignup"
-            onClick={handleNavigation}
-          >
-            Don&apos;t have an account? - Sign up
-          </a>
-          <button type="submit" id="loginSubmit">
-            Log in
-          </button>
+          <div className="form-buttons inlineFlex marginTop">
+            <a
+              className="underline greyDark"
+              id="goToSignup"
+              onClick={handleNavigation}
+            >
+              Don&apos;t have an account? - Sign up
+            </a>
+            <button type="submit" id="loginSubmit">
+              Log in
+            </button>
+          </div>
         </div>
       </form>
     </div>

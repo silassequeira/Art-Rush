@@ -141,6 +141,7 @@ class AuthService {
 
     async updateInteraction(userId, paintingId, saved) {
         try {
+            console.log("Sending data to updateInteraction:", { userId, paintingId, saved });
             const response = await axios.put(`${API_URL}/updateInteraction`, {
                 userId,
                 paintingId,
@@ -149,6 +150,21 @@ class AuthService {
             return response.data;
         } catch (error) {
             throw error.response?.data || { error: 'Error updating interaction.' };
+        }
+    }
+
+    async addFavoriteInteraction(userId, paintingId, favorite) {
+        try {
+            console.log("Sending data to addFavoriteInteraction:", { userId, paintingId, favorite });
+            const response = await axios.post(`${API_URL}/addFavoriteInteraction`, {
+                userId,
+                paintingId,
+                favorite
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error adding interaction:", error.response?.data || error);
+            throw error.response?.data || { error: 'Error adding interaction.' };
         }
     }
 
@@ -175,12 +191,13 @@ class AuthService {
 
     // Check if user is logged in
     isLoggedIn() {
-        return !!localStorage.getItem('user');
+        return localStorage.getItem('user') !== null;
     }
 
     // Get current user
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
+        const user = localStorage.getItem('user');
+        return user ? JSON.parse(user) : null;
     }
 
 }

@@ -135,6 +135,17 @@ router.put('/updateInteraction', async (req, res) => {
     res.status(200).json({ message: 'Interaction updated successfully!', result });
 });
 
+// Route to handle favoriting/unfavoriting a painting
+router.post('/addFavoriteInteraction', async (req, res) => {
+    const { userId, paintingId, favorite } = req.body;
+
+    if (!userId || !paintingId || favorite === undefined) {
+        return res.status(400).json({ error: 'User ID, painting ID, and saved status are required.' });
+    }
+
+    const result = await User.addFavoriteInteraction(userId, paintingId, favorite);
+    res.status(200).json({ message: 'Favorite Interaction updated successfully!', result });
+});
 
 
 

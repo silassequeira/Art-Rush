@@ -69,7 +69,7 @@ function Signup() {
       </div>
 
       <form
-        className="column centeredMarginTop padding"
+        className="column centeredMarginTop justifyStart padding"
         onSubmit={handleSignup}
       >
         <h2>Create your account</h2>

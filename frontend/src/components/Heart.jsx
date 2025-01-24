@@ -99,7 +99,7 @@ function Heart({ initialFilled, onToggle, disabled = false }) {
 }
 
 Heart.propTypes = {
-  initialFilled: PropTypes.bool.isRequired,
+  initialFilled: PropTypes.bool,
   onToggle: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };

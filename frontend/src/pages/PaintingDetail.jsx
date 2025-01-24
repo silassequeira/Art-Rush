@@ -2,28 +2,34 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import PaintingService from "../services/paintingService";
 import { useAuth } from "../services/AuthContext";
 import { useState, useEffect } from "react";
+import PaintingItem from "../components/PaintingItem";
 
 const PaintingDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const location = useLocation();
-  const [painting, setPainting] = useState(null);
+  const [paintings, setPaintings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuth();
 
-  //Check if user is logged in
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
+    const checkUser = async () => {
+      if (!user) {
+        setLoading(true);
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkUser();
   }, [user, navigate]);
 
   useEffect(() => {
     const passedPainting = location.state?.painting;
 
     if (passedPainting) {
-      setPainting(passedPainting);
+      setPaintings(passedPainting);
       setLoading(false);
       return;
     }
@@ -34,7 +40,7 @@ const PaintingDetail = () => {
         const result = await PaintingService.getPaintingById(id);
 
         if (result.success) {
-          setPainting(result.painting);
+          setPaintings(result.painting);
         } else {
           setError(result.error);
         }
@@ -46,6 +52,10 @@ const PaintingDetail = () => {
     fetchPaintingDetails();
   }, [id, location.state]);
 
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
   const handleClose = () => {
     navigate("/", {
       state: {
@@ -54,9 +64,30 @@ const PaintingDetail = () => {
     });
   };
 
-  if (loading) return <div>Loading Painting Details...</div>;
+  const handleImageLoad = (event) => {
+    if (!loading) {
+      const img = event.target;
+      img.classList.add("loaded");
+    }
+  };
+
+  if (loading) return <div className="loader"></div>;
   if (error) return <div>Error: {error}</div>;
-  if (!painting) return <div>No painting found</div>;
+  if (!paintings) return <div>No painting found</div>;
+
+  if (!user) {
+    return (
+      <>
+        <div className="loader"></div>
+        <h2
+          className="centeredMarginTop greyDark marginTopBig"
+          onClick={goToLogin}
+        >
+          You are not Logged In
+        </h2>
+      </>
+    );
+  }
 
   return (
     <div className="padding absolute marginTop">
@@ -78,42 +109,13 @@ const PaintingDetail = () => {
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </div>
-        <div className="layoutGrid">
-          <img
-            src={painting.primaryImage}
-            alt={painting.title}
-            className="full-image"
-          />
-          <div className="flex column alignItemsLeft">
-            <div>
-              <h3>{painting.title}</h3>
-              <span className="greyLight centeredMarginTop fullWidth">
-                {painting?.artistDisplayName}
-              </span>
-            </div>
-            <div>
-              <div className="inlineFlex marginTop">
-                <div className="marginRight">
-                  <span className="greyColor">Date: </span>
-                  <span>{painting?.objectDate || "Unknown"}</span>
-                </div>
-                <div>
-                  <span className="greyColor">Medium:</span>{" "}
-                  <span>{painting?.medium}</span>
-                </div>
-              </div>
-
-              <div>
-                <span className="greyColor">Artist Nationality: </span>
-                <span>{painting?.artistNationality}</span>
-              </div>
-              <div>
-                <span className="greyColor">Artist Bio: </span>
-                <span>{painting?.artistDisplayBio}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PaintingItem
+          key={paintings._id}
+          painting={paintings}
+          onImageLoad={handleImageLoad}
+          handlePaintingClick={() => {}}
+          interactionType={"both"}
+        />
       </div>
     </div>
   );
